@@ -1,0 +1,30 @@
+// Like this adding the class dark to the body will change the colors of all the underlying elements.
+// I'm not quite sure whether the variables at the top are global and I couldn't find information on that on the fly. Might need to look into that
+// Otherwise this seems fine and is what dbrgn has described in https://github.com/threema-ch/threema-web/pull/110
+// See here for the scope of the variables: https://stackoverflow.com/questions/12365703/scss-variable-scope#30009712
+// body.dark {
+$status-ok-color: #4caf50;
+$status-warning-color: #ff9800;
+$status-error-color: #f44336;
+$status-starred-color: #ffc107;
+$border-grey: #dddddd;
+$background-color: lighten($border-grey, 7%);
+$material-grey-color: rgba(0, 0, 0, 0.54);
+$material-grey-dark-color: rgba(0, 0, 0, 0.87);
+$url-light-blue-color: #63a6cf;
+$background-dark-color: #F6F6F6;
+$background-light-color: white;
+$material-card-shadow-color: 0px 2px 5px 0px rgba(0, 0, 0, 0.16),
+0px 2px 5px 0px rgba(0, 0, 0, 0.23); // Colors that were added for theming
+$background-color: rgb(51, 51, 51);
+$background-color-highlight: rgb(36, 36, 36);
+$text-color: white;
+$text-color-2: rgb(0, 0, 0);
+$navigation-topheader-color: #424242;
+$message-bubble-color-in-dark: rgb(51, 51, 51);
+$message-bubble-color-out-dark: rgb(11, 19, 65);
+$border-width: 4px;
+$border-count: 2;
+$background-white-color: green;
+$text-dark-background-color: black;
+// @import "../app";

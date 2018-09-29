@@ -16,7 +16,7 @@
 
 @mixin loading-spinner($diameter,
                        $thickness: 5px,
-                       $color-fg: $material-grey-dark,
+                       $color-fg: $material-grey-dark-color,
                        $color-bg: rgba(0, 0, 0, 0.1)) {
     display: block;
     &>:first-child {

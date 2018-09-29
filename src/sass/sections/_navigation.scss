@@ -4,12 +4,12 @@
 }
 
 #navigation-topheader {
-    background-color: #424242;
+    background-color: $background-topheader-offset-color;
     padding: 0 $main-padding 0 (2*$main-padding);
     min-height: 68px;
     display: flex;
     flex-direction: row;
-    color: white;
+    color: $text-on-background-topheader-offset-color;
     box-shadow: -2px 2px 4px -2px rgba(0,0,0,0.8);
     z-index: 21;
     align-items: center;
@@ -34,7 +34,7 @@
 }
 
 #navigation-header {
-    background-color: #f5f5f5;
+    background-color: $background-light-color;
     box-shadow: -2px 2px 4px -2px rgba(0,0,0,0.4);
     z-index: 18;
     .main {
@@ -47,6 +47,9 @@
             :first-of-type {
                 margin-left: 0px;
             }
+            .active {
+                // background-color: red;
+            }
         }
 
         .md-button {
@@ -56,13 +59,13 @@
 
     .search {
         input[type="text"] {
-            border: 1px solid #ddd;
+            border: 1px solid $text-bright-background-color;
             border-radius: $material-radius;
             padding: $main-padding;
             box-sizing: border-box;
             width: 100%;
             margin: 0;
-            background-color: white;
+            background-color: $background-light-color;
             .md-errors-spacer {
                 display: none;
             }
@@ -96,7 +99,7 @@
 #navigation-conversations,
 #navigation-contacts {
     .empty {
-        color: $material-grey;
+        color: $material-grey-color;
         margin-top: 1em;
         margin-left: 4px;
         font-size: 1.2em;
@@ -109,7 +112,7 @@
     $border-width: 4px;
     $border-count: 2;
     overflow-y: auto;
-    background-color: white;
+    background-color: $background-light-color;
     flex: 1;
     .loading-element {
         margin-top: 50px;
@@ -118,41 +121,44 @@
     .conversation-wrapper {
         display: block;
         @include nav-item-separator;
+        background-color: $background-light-color;
 
         .conversation {
             display: flex;
             flex-direction: row;
             align-items: center;
             padding: (1.5 * $main-padding) $main-padding - ($border-width * ($border-count - 1));
-            border-left: $border-width * $border-count solid white;
+            border-left: $border-width * $border-count solid $background-light-color;
+            background-color: $background-light-color;
 
             &.active, &:hover {
-                background-color: $dark-background-color;
-                border-color: $dark-background-color;
+                background-color: $background-dark-color;
+                border-color: $background-dark-color;
             }
             &:hover:not(.active) {
                 @include mouse-hand;
+                background-color: $background-dark-color;
             }
 
             // Only unread
             &.unread {
-                border-image: linear-gradient(to right, $status-error, $status-error 50%, white 50%, white 100%) 1 100%;
+                border-image: linear-gradient(to right, $status-error-color, $status-error-color 50%, $background-light-color 50%, $background-light-color 100%) 1 100%;
                 &.active {
-                    border-image: linear-gradient(to right, $status-error, $status-error 50%, $dark-background-color 50%, $dark-background-color 100%) 1 100%;
+                    border-image: linear-gradient(to right, $status-error-color, $status-error-color 50%, $background-dark-color 50%, $background-dark-color 100%) 1 100%;
                 }
             }
 
             // Only starred
             &.starred {
-                border-image: linear-gradient(to right, $status-starred, $status-starred 50%, white 50%, white 100%) 1 100%;
+                border-image: linear-gradient(to right, $status-starred-color, $status-starred-color 50%, $background-light-color 50%, $background-light-color 100%) 1 100%;
                 &.active {
-                    border-image: linear-gradient(to right, $status-starred, $status-starred 50%, $dark-background-color 50%, $dark-background-color 100%) 1 100%;
+                    border-image: linear-gradient(to right, $status-starred-color, $status-starred-color 50%, $background-dark-color 50%, $background-dark-color 100%) 1 100%;
                 }
             }
 
             // Both starred and unread
             &.starred.unread {
-                border-image: linear-gradient(to right, $status-error, $status-error 50%, $status-starred 50%, $status-starred 100%) 1 100%;
+                border-image: linear-gradient(to right, $status-error-color, $status-error-color 50%, $status-starred-color 50%, $status-starred-color 100%) 1 100%;
             }
 
             .avatar-box {
@@ -168,6 +174,7 @@
                 display: flex;
                 flex-direction: column;
                 overflow: hidden;
+                //  background-color: $background-light-color;
 
                 .receiver-box,
                 .message-box {
@@ -182,7 +189,7 @@
                     flex-direction: row;
                     justify-content: space-between;
                     font-weight: bold;
-                    color: black;
+                    color: $text-bright-background-color;
                     .title {
                         flex: 1;
                         white-space: nowrap;
@@ -202,16 +209,17 @@
 
                 .message-box {
                     flex-grow: 1;
+                    // background-color: $background-light-color;
 
                     .latest-message {
                         display: flex;
                         flex-direction: row;
                         justify-content: space-between;
                         align-items: center;
-                        color: $material-grey;
+                        color: $text-bright-background-color;
 
                         .left {
-                            white-space: nowrap;
+                            // $background-light-color-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
                             display: flex;
@@ -229,6 +237,7 @@
                         }
 
                         .message-name, .message-text {
+                            color: $text-bright-background-color;
                             line-height: 1.7em;
                         }
 
@@ -277,14 +286,18 @@
                                 display: none;
                             }
                         }
+
+                        .message-date {
+                            color: $text-bright-background-color;
+                        }
                     }
                 }
             }
 
             .badge.unread-count {
-                background-color: $status-error;
+                background-color: $status-error-color;
                 border-radius: 5px;
-                color: white;
+                color: $text-in-unread-count-offset-color;
                 font-size: 0.9em;
                 padding: 0 5px;
                 margin-left: 4px;
@@ -303,12 +316,14 @@
         justify-content: flex-start;
         align-items: center;
         padding: 12px 8px;
-        border-left: 4px solid white;
+        border-left: 4px solid $background-light-color;
+        
 
         @include nav-item-separator;
 
         .avatar-box {
             padding-right: 8px;
+            color: $text-bright-background-color;
         }
 
         .left {
@@ -325,16 +340,22 @@
 
         .name {
             font-weight: bold;
+            color: $text-bright-background-color;
+        }
+
+        .identity {
+            color: $text-bright-background-color;
         }
 
         .nickname {
             font-size: 0.8em;
+            color: $text-bright-background-color;
         }
     }
 
     .contact:hover {
         @include mouse-hand;
-        background-color: #f5f5f5;
+        background-color: $background-dark-color;
     }
 
     .contact.inactive {
@@ -350,7 +371,7 @@
     position: relative;
 
     md-icon {
-        color: white;
+        color: $background-light-color;
     }
 
     .fab-button-add-contact {
