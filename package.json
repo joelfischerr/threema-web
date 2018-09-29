@@ -5,8 +5,8 @@
   "scripts": {
     "build": "npm run build:js && npm run build:css",
     "build:js": "browserify -p tsify src/app.ts -t [ babelify --presets [ es2015 ] --extensions .ts ] -p [ browserify-header --file header.js ] -o dist/app.js",
-    "build:css": "node-sass -o public/css/ --output-style compressed src/sass/",
-    "build:css:watch": "node-sass -w -r --source-map true --source-map-embed true -o public/css/ --output-style compressed src/sass/",
+    "build:css": "node-sass -o public/css/ --output-style uncompressed src/sass/themes",
+    "build:css:watch": "node-sass -w -r --source-map true --source-map-embed true -o public/css/ --output-style compressed src/sass/themes",
     "build:tests": "browserify -p tsify tests/ts/main.ts -t [ babelify --presets [ es2015 ] --extensions .ts ] -o dist/ts-tests.js",
     "dist": "npm run build && echo \"\" && node dist/build-package.js",
     "serve:live": "echo 'NOTE: serve:live command has been renamed to devserver'",
