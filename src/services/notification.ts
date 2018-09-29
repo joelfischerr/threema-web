@@ -222,52 +222,56 @@ export class NotificationService {
         }
     }
 
-    public setTheme(themeNumber: string): void {
-        this.$log.info(this.logTag, 'Set a new theme', themeNumber);
-        this.storeSetting('ThemeService.THEME_SETTING', themeNumber);
+    /**
+     * Sets the theme to themeName
+     */
+    public setTheme(themeName: string): void {
+        this.$log.info(this.logTag, 'Set a new theme', themeName);
+        this.storeSetting('ThemeService.THEME_SETTING', themeName);
         this.runTheme();
     }
 
+    /**
+     * Retrieves the theme from settings
+     */
     public getTheme(): string {
         return this.retrieveSetting('ThemeService.THEME_SETTING');
     }
 
+    /**
+     * Changes the theme to the one currently stored in the settings
+     */
     public runTheme() {
-        let name = this.getTheme();
-        this.$log.warn(this.logTag, 'Setting the theme to: ', name);
-        // const el = document.body;
-        // el.classList.add('dark');
-        // name = 'darkTheme';
+        let themeName = this.getTheme();
+        this.$log.warn(this.logTag, 'Setting the theme to: ', themeName);
 
-        if(name === 'Dark (Black)') {
-            name = 'app-dark.css';
-        } else if (name === 'Dark (Blue)') {
-            name = 'app-dark.css';
-        } else if (name === 'Light (White)') {
-            name = 'app-light.css';
-        } else if (name === 'Light (Grey)') {
-            name = 'app-light.css';
+        if (themeName === 'Dark (Black)') {
+            themeName = 'app-dark.css';
+        } else if (themeName === 'Dark (Blue)') {
+            themeName = 'app-dark.css';
+        } else if (themeName === 'Light (White)') {
+            themeName = 'app-light.css';
+        } else if (themeName === 'Light (Grey)') {
+            themeName = 'app-light.css';
         } else {
-            name = 'app-light.css';
+            themeName = 'app-light.css';
         }
 
-        this.$log.warn(this.logTag, 'Setting the link to: ', '/css/' + name);
+        this.$log.warn(this.logTag, 'Setting the link to: ', '/css/' + themeName);
 
         // Copied from StackOverflow: https://stackoverflow.com/a/577002/2310837
         // you could encode the css path itself to generate id..
         const cssId = 'themeIDkals';
-        // if (!document.getElementById(cssId)) {
         const head = document.getElementsByTagName('head')[0];
         const oldTheme = document.getElementById(cssId);
         const link = document.createElement('link');
         link.id = cssId;
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = '/css/' + name;
+        link.href = '/css/' + themeName;
         link.media = 'all';
         head.appendChild(link);
         head.removeChild(oldTheme);
-        // }
     }
 
     /**

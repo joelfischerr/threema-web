@@ -436,8 +436,7 @@ export class WebClientService {
         // Create new handshake future
         this.connectionInfoFuture = new Future();
 
-        // Set the theme here
-        this.$log.warn('We could set the theme here');
+        // Set the theme
         this.notificationService.runTheme();
 
         // Create WebRTC task instance
