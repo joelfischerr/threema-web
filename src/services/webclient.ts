@@ -436,6 +436,10 @@ export class WebClientService {
         // Create new handshake future
         this.connectionInfoFuture = new Future();
 
+        // Set the theme here
+        this.$log.warn('We could set the theme here');
+        this.notificationService.runTheme();
+
         // Create WebRTC task instance
         const maxPacketSize = this.browserService.getBrowser().isFirefox(false) ? 16384 : 65536;
         this.webrtcTask = new saltyrtcTaskWebrtc.WebRTCTask(true, maxPacketSize);
