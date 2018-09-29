@@ -145,6 +145,10 @@ class SettingsController {
     private notificationPreview: boolean;
     private notificationSound: boolean;
 
+    private themeNumber: string;
+
+    public themeOptions = ['Light (White)', 'Light (Grey)', 'Dark (Black)', 'Dark (Blue)'];
+
     constructor($mdDialog: ng.material.IDialogService,
                 $window: ng.IWindowService,
                 settingsService: SettingsService,
@@ -188,6 +192,31 @@ class SettingsController {
 
     public setWantsSound(notificationSound: boolean) {
         this.notificationService.setWantsSound(notificationSound);
+    }
+
+    public setTheme() {
+
+
+        if (this.themeNumber === undefined || this.themeNumber === '') {
+            // No theme selected
+        } else {
+            // Hello world
+            this.notificationService.setTheme(this.themeNumber);
+        }
+
+    }
+
+    public getTheme(): string {
+
+        this.themeNumber = this.notificationService.getTheme();
+        if (this.themeNumber === undefined || this.themeNumber === '') {
+            this.notificationService.setTheme(this.themeOptions[0]);
+            this.themeNumber = this.themeOptions[0];
+        }
+
+        // this.themeName = "Dark Theme";
+
+        return this.themeNumber;
     }
 
 }
