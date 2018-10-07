@@ -441,7 +441,7 @@ export class WebClientService {
 
         // Create WebRTC task instance
         const maxPacketSize = this.browserService.getBrowser().isFirefox(false) ? 16384 : 65536;
-        this.webrtcTask = new saltyrtcTaskWebrtc.WebRTCTask(true, maxPacketSize);
+        this.webrtcTask = new saltyrtcTaskWebrtc.WebRTCTask(true, maxPacketSize, this.config.SALTYRTC_LOG_LEVEL);
 
         // Create Relayed Data task instance
         this.relayedDataTask = new saltyrtcTaskRelayedData.RelayedDataTask(this.config.DEBUG);
@@ -473,7 +473,7 @@ export class WebClientService {
         // Create SaltyRTC client
         let builder = new saltyrtcClient.SaltyRTCBuilder()
             .connectTo(this.saltyRtcHost, this.config.SALTYRTC_PORT)
-            .withLoggingLevel('warn')
+            .withLoggingLevel(this.config.SALTYRTC_LOG_LEVEL)
             .withServerKey(this.config.SALTYRTC_SERVER_KEY)
             .withKeyStore(keyStore)
             .usingTasks(tasks)
@@ -1387,10 +1387,13 @@ export class WebClientService {
      * New messages are not requested this way, instead they are sent as a
      * message update.
      */
-    public requestMessages(receiver: threema.Receiver): string {
+    public requestMessages(receiver: threema.Receiver): string | null {
+        this.$log.debug(this.logTag, 'requestMessages');
+
         // If there are no more messages available, stop here.
         if (!this.messages.hasMore(receiver)) {
             this.messages.notify(receiver, this.$rootScope);
+            this.$log.debug(this.logTag, 'requestMessages: No more messages available');
             return null;
         }
 
@@ -1398,6 +1401,7 @@ export class WebClientService {
 
         // Check if messages have already been requested
         if (this.messages.isRequested(receiver)) {
+            this.$log.debug(this.logTag, 'requestMessages: Already requested');
             return null;
         }
 
@@ -1752,7 +1756,6 @@ export class WebClientService {
     }
 
     public sendKeyPersisted(): void {
-        // TODO: This message is not defined in ARP. Remove?
         const subType = WebClientService.SUB_TYPE_KEY_PERSISTED;
         this.sendRequestWireMessage(subType, !this.requiresTemporaryIdBackwardsCompatibility)
             .catch(this.logOnReject(WebClientService.TYPE_REQUEST, subType));
