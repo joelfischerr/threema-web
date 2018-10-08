@@ -3106,7 +3106,7 @@ export class WebClientService {
                 canChangeFirstName: true,
                 canChangeLastName: true,
             },
-            color: '#000000',
+            color: 'rgb(0, 150, 136)',
         });
 
         this.registerInitializationStep(InitializationStep.Profile);
