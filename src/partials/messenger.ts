@@ -145,7 +145,7 @@ class SettingsController {
     private notificationPreview: boolean;
     private notificationSound: boolean;
 
-    private themeNumber: string;
+    private themeName: string;
 
     public themeOptions = ['Light (White)', 'Light (Grey)', 'Dark (Black)', 'Dark (Blue)'];
 
@@ -197,26 +197,26 @@ class SettingsController {
     public setTheme() {
 
 
-        if (this.themeNumber === undefined || this.themeNumber === '') {
+        if (this.themeName === undefined || this.themeName === '') {
             // No theme selected
         } else {
             // Hello world
-            this.notificationService.setTheme(this.themeNumber);
+            this.notificationService.setTheme(this.themeName);
         }
 
     }
 
     public getTheme(): string {
 
-        this.themeNumber = this.notificationService.getTheme();
-        if (this.themeNumber === undefined || this.themeNumber === '') {
+        this.themeName = this.notificationService.getTheme();
+        if (this.themeName === undefined || this.themeName === '') {
             this.notificationService.setTheme(this.themeOptions[0]);
-            this.themeNumber = this.themeOptions[0];
+            this.themeName = this.themeOptions[0];
         }
 
         // this.themeName = "Dark Theme";
 
-        return this.themeNumber;
+        return this.themeName;
     }
 
 }
