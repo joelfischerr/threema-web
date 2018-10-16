@@ -254,7 +254,7 @@ export class NotificationService {
         } else if (themeName === 'Light (Grey)') {
             themeName = 'app-light.css';
         } else {
-            themeName = 'app-dark.css';
+            themeName = 'app-light.css';
         }
 
         this.$log.warn(this.logTag, 'Setting the link to: ', '/css/' + themeName);
