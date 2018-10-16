@@ -3,6 +3,7 @@
 // // Otherwise this seems fine and is what dbrgn has described in https://github.com/threema-ch/threema-web/pull/110
 // // See here for the scope of the variables: https://stackoverflow.com/questions/12365703/scss-variable-scope#30009712
 
+$wallpaper: "../img/wallpaper_light.png?"; // TODO: Use a darker wallpaper
 $threema-green: rgb(0, 150, 136);
 // Status colors
 $status-ok-color: #4caf50;
