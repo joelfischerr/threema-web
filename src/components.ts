@@ -1,6 +1,4 @@
 /**
- * Copyright © 2016-2018 Threema GmbH (https://threema.ch/).
- *
  * This file is part of Threema Web.
  *
  * Threema Web is free software: you can redistribute it and/or modify it
@@ -17,11 +15,8 @@
  * along with Threema Web. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// tslint:disable:no-reference
-/// <reference path="../../src/threema.d.ts" />
+angular.module('3ema.components', []);
 
-import './containers';
-import './crypto_helpers';
-import './helpers';
-import './markup_parser';
-import './receiver_helpers';
+import toggleButton from './components/toggle_button';
+
+angular.module('3ema.components').component('toggleButton', toggleButton);
