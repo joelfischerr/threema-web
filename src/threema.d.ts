@@ -621,6 +621,7 @@ declare namespace threema {
         VERSION_MOUNTAIN: string;
         VERSION_MOUNTAIN_URL: string;
         VERSION_MOUNTAIN_IMAGE_URL: string;
+        VERSION_MOUNTAIN_IMAGE_COPYRIGHT: string;
         VERSION_MOUNTAIN_HEIGHT: number;
         GIT_BRANCH: string;
         SALTYRTC_PORT: number;
@@ -786,7 +787,7 @@ declare namespace threema {
             set(data: Conversation[]): void;
             find(pattern: Conversation | Receiver): Conversation | null;
             add(conversation: Conversation): void;
-            updateOrAdd(conversation: Conversation): Conversation | null;
+            updateOrAdd(conversation: Conversation, returnOld?: boolean): Conversation | null;
             remove(conversation: Conversation): void;
             setFilter(filter: (data: Conversation[]) => Conversation[]): void;
             setConverter(converter: (data: Conversation) => Conversation): void;

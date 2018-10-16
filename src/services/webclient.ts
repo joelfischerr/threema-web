@@ -23,7 +23,8 @@ import {StateService as UiStateService} from '@uirouter/angularjs';
 
 import * as msgpack from 'msgpack-lite';
 import {
-    arraysAreEqual, hasFeature, hasValue, hexToU8a, msgpackVisualizer, randomString, stringToUtf8a, u8aToHex,
+    arraysAreEqual, copyDeep, hasFeature, hasValue, hexToU8a,
+    msgpackVisualizer, randomString, stringToUtf8a, u8aToHex,
 } from '../helpers';
 import {isContactReceiver, isDistributionListReceiver, isGroupReceiver, isValidReceiverType} from '../typeguards';
 import {BatteryStatusService} from './battery';
@@ -1684,7 +1685,8 @@ export class WebClientService {
                         // Determine error message
                         let errorMessage;
                         switch (error) {
-                            case 'file_too_large':
+                            case 'file_too_large': // TODO: deprecated
+                            case 'fileTooLarge':
                                 errorMessage = this.$translate.instant('error.FILE_TOO_LARGE_GENERIC');
                                 break;
                             case 'blocked':
@@ -1817,6 +1819,33 @@ export class WebClientService {
         }
 
         return promise;
+    }
+
+    /*
+     * Modify a conversation.
+     */
+    public modifyConversation(conversation: threema.Conversation, isPinned?: boolean): Promise<null> {
+        const DATA_STARRED = 'isStarred';
+
+        // Prepare payload data
+        const args = {
+            [WebClientService.ARGUMENT_RECEIVER_TYPE]: conversation.type,
+            [WebClientService.ARGUMENT_RECEIVER_ID]: conversation.id,
+        };
+        const data = {};
+        if (hasValue(isPinned)) {
+            data[DATA_STARRED] = isPinned;
+        }
+
+        // If no changes happened, resolve the promise immediately.
+        if (Object.keys(data).length === 0) {
+            this.$log.warn(this.logTag, 'Trying to modify conversation without any changes');
+            return Promise.resolve(null);
+        }
+
+        // Send update
+        const subType = WebClientService.SUB_TYPE_CONVERSATION;
+        return this.sendUpdateWireMessage(subType, true, args, data);
     }
 
     /**
@@ -2855,7 +2884,7 @@ export class WebClientService {
                 // To find out, we'll look at the unread count. If it has been
                 // incremented, it must be a new message.
                 if (data.unreadCount > 0) {
-                    const oldConversation = this.conversations.updateOrAdd(data);
+                    const oldConversation = this.conversations.updateOrAdd(data, true);
                     if (oldConversation === null) {
                         this.onNewMessage(data.latestMessage, data, receiver);
                     } else {
@@ -2873,7 +2902,7 @@ export class WebClientService {
                     }
                 } else {
                     // Update the conversation and hide any notifications
-                    this.conversations.updateOrAdd(data);
+                    this.conversations.updateOrAdd(data, false);
                     this.notificationService.hideNotification(data.type + '-' + data.id);
                 }
 
@@ -2910,6 +2939,10 @@ export class WebClientService {
 
         // Get receiver
         const receiver = this.receivers.getData({type: args.type, id: args.id});
+        if (receiver === undefined) {
+            this.$log.error(this.logTag, 'Received avatar update for nonexistent receiver');
+            return;
+        }
 
         // Set low-res avatar
         receiver.avatar.low = data;
@@ -2944,17 +2977,17 @@ export class WebClientService {
     }
 
     private _receiveUpdateContact(message: threema.WireMessage): void {
-        const future = this.popWireMessageFuture(message, true);
+        const future = this.popWireMessageFuture(message);
         this._receiveReplyReceiver(message, 'contact', future);
     }
 
     private _receiveUpdateGroup(message: threema.WireMessage): void {
-        const future = this.popWireMessageFuture(message, true);
+        const future = this.popWireMessageFuture(message);
         this._receiveReplyReceiver(message, 'group', future);
     }
 
     private _receiveUpdateDistributionList(message: threema.WireMessage): void {
-        const future = this.popWireMessageFuture(message, true);
+        const future = this.popWireMessageFuture(message);
         this._receiveReplyReceiver(message, 'distributionList', future);
     }
 
@@ -3671,6 +3704,9 @@ export class WebClientService {
             this.$log.debug('[Message] Outgoing:', message.type, '/', message.subType, message);
         }
 
+        // TODO: Fix chosenTask may be different between connections in the
+        //       future. Do not rely on it when sending while not being
+        //       connected.
         switch (this.chosenTask) {
             case threema.ChosenTask.WebRTC:
                 {
@@ -3810,17 +3846,15 @@ export class WebClientService {
         // Decode bytes
         const message: threema.WireMessage = this.msgpackDecode(bytes);
 
-        return this.handleIncomingMessage(message, false);
+        return this.handleIncomingMessage(message);
     }
 
     /**
      * Handle incoming incoming from the SecureDataChannel
      * or from the relayed data WebSocket.
      */
-    private handleIncomingMessage(message: threema.WireMessage, log: boolean): void {
-        if (log) {
-            this.$log.debug('New incoming message');
-        }
+    private handleIncomingMessage(message: threema.WireMessage): void {
+        this.$log.debug(`Received ${message.type}/${message.subType} message`);
 
         // Validate message to keep contract defined by `threema.WireMessage` type
         if (message.type === undefined) {
@@ -3834,7 +3868,7 @@ export class WebClientService {
         // If desired, log message type / subtype
         if (this.config.MSG_DEBUGGING) {
             // Deep copy message to prevent issues with JS debugger
-            const deepcopy = JSON.parse(JSON.stringify(message));
+            const deepcopy = copyDeep(message);
             this.$log.debug('[Message] Incoming:', message.type, '/', message.subType, deepcopy);
         }
 
@@ -3854,6 +3888,7 @@ export class WebClientService {
             // Check for unexpected messages
             if (message.type !== WebClientService.TYPE_UPDATE ||
                 message.subType !== WebClientService.SUB_TYPE_CONNECTION_INFO) {
+                this.$log.error(this.logTag, 'Unexpected message before handshake has been completed');
                 this.failSession();
                 return;
             }
@@ -3888,7 +3923,7 @@ export class WebClientService {
             try {
                 messageHandler.apply(this, [message.subType, message]);
             } catch (error) {
-                this.$log.error(this.logTag, `Unable to handle incoming wire message: ${error}`);
+                this.$log.error(this.logTag, `Unable to handle incoming wire message: ${error}`, error.stack);
                 return;
             }
         }

@@ -19,6 +19,7 @@
         .header-details {
             @include mouse-hand;
             overflow: hidden;
+            flex-grow: 1;
 
             & > *:first-child {
                 font-weight: bold;
@@ -91,7 +92,7 @@
     }
 
     #conversation-footer {
-        background-color: $background-light-color;
+        background-color: $background-dark-color;
 
         .chat-input {
             width: 100%;
