@@ -1,6 +1,6 @@
 #conversation {
     // TODO: readd background-image
-    // background-image: url("../img/wallpaper_light.png?");
+    background-image: url($wallpaper);
     height: 100%;
     display: flex;
     flex-direction: column;
