@@ -1017,6 +1017,10 @@ class NavigationController {
         return this.receiverService.isConversationActive(value);
     }
 
+    public startupDone(): boolean {
+        return this.webClientService.startupDone;
+    }
+
     /**
      * Return true if the app wants to hide inactive contacts.
      */
