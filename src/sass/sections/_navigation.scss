@@ -47,9 +47,6 @@
             :first-of-type {
                 margin-left: 0px;
             }
-            .active {
-                // background-color: red;
-            }
         }
 
         .md-button {
@@ -174,7 +171,6 @@
                 display: flex;
                 flex-direction: column;
                 overflow: hidden;
-                //  background-color: $background-light-color;
 
                 .receiver-box,
                 .message-box {
