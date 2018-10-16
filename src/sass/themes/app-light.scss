@@ -12,16 +12,16 @@ $status-warning-color: #ff9800;
 $status-error-color: #f44336;
 $status-starred-color: #ffc107;
 // Border colors
-$border-grey: rgb(99, 99, 99) !default;
+$border-grey: rgba(99, 99, 99, 0) !default;
 $border-color: rgb(119, 119, 119);
 // Background colors
 // $background-grey-color: lighten($border-grey, 7%) !default;
 $background-dark-color: $light-gray !default;
-$background-light-color: white !default;
+$background-light-color: #f5f5f5 !default;
 $background-welcome-light-color: white !default;
 $background-very-light-color: white !default;
 $background-topheader-offset-color: #424242;
-$conversation-header-color: $light-gray;
+$conversation-header-color: #f5f5f5;
 // Material colors
 $material-grey-color: rgba(0, 0, 0, 0.54) !default;
 $material-grey-inactive-color: rgba(0, 0, 0, 0.26) !default;
@@ -37,8 +37,8 @@ $text-on-background-topheader-offset-color: white;
 $text-in-unread-count-offset-color: white;
 // Icon colors
 $icon-color: black;
-$dark-icon-color: $dark-gray;
-$icon-medium-dark-color: gray;
+$dark-icon-color: black;
+$icon-medium-dark-color: $dark-gray;
 // Message bubble colors
 $message-quote-color: $threema-green;
 $message-bubble-color-in: #f7f7f7 !default;
