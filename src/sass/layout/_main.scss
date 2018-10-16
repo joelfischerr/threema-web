@@ -238,13 +238,6 @@ md-menu-content {
     background-color: $background-light-color; // color: $text-bright-background-color;
 }
 
-md-menu-item {
-    &:hover {
-        // This did not work. Skipped until the final colours have been decided.
-        // background-color: $background-dark-color;
-    }
-}
-
 md-dialog.md-default-theme,
 md-dialog {
     background-color: $background-light-color;
