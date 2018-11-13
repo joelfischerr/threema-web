@@ -38,6 +38,7 @@ import {PushService} from './push';
 import {QrCodeService} from './qrcode';
 import {ReceiverService} from './receiver';
 import {StateService} from './state';
+import {TimeoutService} from './timeout';
 import {TitleService} from './title';
 import {VersionService} from './version';
 
@@ -172,6 +173,7 @@ export class WebClientService {
     private pushService: PushService;
     private qrCodeService: QrCodeService;
     private receiverService: ReceiverService;
+    private timeoutService: TimeoutService;
     private titleService: TitleService;
     private versionService: VersionService;
 
@@ -213,6 +215,9 @@ export class WebClientService {
     private pushToken: string = null;
     private pushTokenType: threema.PushTokenType = null;
 
+    // Timeouts
+    private batteryStatusTimeout: ng.IPromise<void> = null;
+
     // Other
     private config: threema.Config;
     private container: threema.Container.Factory;
@@ -222,7 +227,6 @@ export class WebClientService {
     private trustedKeyStore: TrustedKeyStoreService;
     public clientInfo: threema.ClientInfo = null;
     public version = null;
-    private batteryStatusTimeout: ng.IPromise<void> = null;
 
     private blobCache = new Map<string, threema.BlobInfo>();
     private loadingMessages = new Map<string, boolean>();
@@ -245,7 +249,7 @@ export class WebClientService {
         'Container', 'TrustedKeyStore',
         'StateService', 'NotificationService', 'MessageService', 'PushService', 'BrowserService',
         'TitleService', 'QrCodeService', 'MimeService', 'ReceiverService',
-        'VersionService', 'BatteryStatusService',
+        'VersionService', 'BatteryStatusService', 'TimeoutService',
         'CONFIG',
     ];
     constructor($log: ng.ILogService,
@@ -270,6 +274,7 @@ export class WebClientService {
                 receiverService: ReceiverService,
                 versionService: VersionService,
                 batteryStatusService: BatteryStatusService,
+                timeoutService: TimeoutService,
                 CONFIG: threema.Config) {
 
         // Angular services
@@ -292,6 +297,7 @@ export class WebClientService {
         this.pushService = pushService;
         this.qrCodeService = qrCodeService;
         this.receiverService = receiverService;
+        this.timeoutService = timeoutService;
         this.titleService = titleService;
         this.versionService = versionService;
 
@@ -343,20 +349,6 @@ export class WebClientService {
     }
 
     /**
-     * Return the amount of chunks cached from a previous connection that
-     * require immediate sending.
-     */
-    get immediateChunksPending(): number {
-        // TODO: Apply the chunk **push** blacklist instead of the chunk cache
-        //       blacklist!
-        if (this.previousChunkCache === null) {
-            return 0;
-        } else {
-            return this.previousChunkCache.chunks.length;
-        }
-    }
-
-    /**
      * Return the amount of unacknowledged wire messages.
      */
     get unacknowledgedWireMessages(): number {
@@ -396,11 +388,12 @@ export class WebClientService {
         this.$log.info(`Initializing (keyStore=${keyStore !== undefined ? 'yes' : 'no'}, peerTrustedKey=` +
             `${flags.peerTrustedKey !== undefined ? 'yes' : 'no'}, resume=${resumeSession})`);
 
-        // Reset fields, blob cache & pending requests in case the session
+        // Reset fields, blob cache, pending requests and pending timeouts in case the session
         // should explicitly not be resumed
         if (!resumeSession) {
             this.clearCache();
             this.wireMessageFutures.clear();
+            this.timeoutService.cancelAll();
         }
 
         // Only move the previous connection's instances if the previous
@@ -753,7 +746,7 @@ export class WebClientService {
         this.$log.debug(`Chunk cache pruned, acknowledged: ${result.acknowledged}, left: ${result.left}, size: ` +
             `${size} -> ${this.previousChunkCache.byteLength}`);
         if (this.config.MSG_DEBUGGING) {
-            this.$log.debug(`Chunks that require acknowledgement: ${this.immediateChunksPending}`);
+            this.$log.debug(`Chunks that require acknowledgement: ${this.previousChunkCache.chunks.length}`);
         }
 
         // Transfer the cache (filters chunks which should not be retransmitted)
@@ -873,10 +866,11 @@ export class WebClientService {
             this.discardSession({ resetMessageSequenceNumber: false });
             this.$log.debug(this.logTag, 'Session discarded');
 
-            // Reset fields, blob cache & pending requests in case the session
+            // Reset fields, blob cache, pending requests and pending timeouts in case the session
             // cannot be resumed
             this.clearCache();
             this.wireMessageFutures.clear();
+            this.timeoutService.cancelAll();
 
             // Set required initialisation steps
             requiredInitializationSteps.push(
@@ -926,7 +920,7 @@ export class WebClientService {
         // Fetch current version
         // Delay it to prevent the dialog from being closed by the messenger constructor,
         // which closes all open dialogs.
-        this.$timeout(() => this.versionService.checkForUpdate(), 7000);
+        this.timeoutService.register(() => this.versionService.checkForUpdate(), 7000, true, 'checkForUpdate');
 
         // Notify state service about data loading
         this.stateService.updateConnectionBuildupState('loading');
@@ -1149,6 +1143,9 @@ export class WebClientService {
 
             // Remove all pending promises
             this.wireMessageFutures.clear();
+
+            // Cancel pending timeouts
+            this.timeoutService.cancelAll();
 
             // Reset the push service
             this.pushService.reset();
@@ -1781,7 +1778,7 @@ export class WebClientService {
         threemaId: string,
         firstName?: string,
         lastName?: string,
-        avatar?: ArrayBuffer,
+        avatar?: ArrayBuffer | null,
     ): Promise<threema.ContactReceiver> {
         // Prepare payload data
         const data = {};
@@ -1853,15 +1850,15 @@ export class WebClientService {
      */
     public createGroup(
         members: string[],
-        name: string = null,
-        avatar?: ArrayBuffer,
+        name: string | null = null,
+        avatar?: ArrayBuffer | null,
     ): Promise<threema.GroupReceiver> {
         const data = {
             [WebClientService.ARGUMENT_MEMBERS]: members,
             [WebClientService.ARGUMENT_NAME]: name,
         } as object;
 
-        if (avatar !== undefined) {
+        if (hasValue(avatar)) {
             data[WebClientService.ARGUMENT_AVATAR] = avatar;
         }
 
@@ -1876,7 +1873,7 @@ export class WebClientService {
         id: string,
         members: string[],
         name?: string,
-        avatar?: ArrayBuffer,
+        avatar?: ArrayBuffer | null,
     ): Promise<threema.GroupReceiver> {
         // Prepare payload data
         const data = {
@@ -2012,7 +2009,7 @@ export class WebClientService {
     /**
      * Modify own profile.
      */
-    public modifyProfile(nickname?: string, avatar?: ArrayBuffer): Promise<null> {
+    public modifyProfile(nickname?: string, avatar?: ArrayBuffer | null): Promise<null> {
         // Prepare payload data
         const data = {};
         if (nickname !== undefined && nickname !== null) {
@@ -2187,9 +2184,10 @@ export class WebClientService {
         // Set contact detail
         const contactReceiver = this.receivers.contacts
             .get(args[WebClientService.ARGUMENT_IDENTITY]) as threema.ContactReceiver;
-        if (hasValue(data[WebClientService.SUB_TYPE_RECEIVER])) {
+        const receiver = data[WebClientService.SUB_TYPE_RECEIVER];
+        if (hasValue(receiver)) {
             contactReceiver.systemContact =
-                data[WebClientService.SUB_TYPE_RECEIVER][WebClientService.ARGUMENT_SYSTEM_CONTACT];
+                receiver[WebClientService.ARGUMENT_SYSTEM_CONTACT];
         }
         future.resolve(contactReceiver);
     }
@@ -2362,15 +2360,8 @@ export class WebClientService {
             return future.reject(message.ack.error);
         }
 
-        // Unpack and validate args
-        const args = message.args;
+        // Unpack and validate data
         const data = message.data;
-        if (args === undefined) {
-            this.$log.error(`Invalid ${receiverType} response, args or data missing`);
-            return future.reject('invalidResponse');
-        }
-
-        // Validate data
         if (data === undefined) {
             this.$log.error(`Invalid ${receiverType} response, 'data' is missing`);
             return future.reject('invalidResponse');
@@ -2591,7 +2582,7 @@ export class WebClientService {
         // Set avatar for receiver according to resolution
         const field: string = highResolution ? 'high' : 'low';
         const receiverData = this.receivers.getData(args);
-        if (receiverData.avatar === null || receiverData.avatar === undefined) {
+        if (!hasValue(receiverData.avatar)) {
             receiverData.avatar = {};
         }
         receiverData.avatar[field] = avatar;
@@ -2727,6 +2718,9 @@ export class WebClientService {
                     // Try to update it first. If not, add it as a new msg.
                     if (!this.messages.update(receiver, msg)) {
                         this.messages.addNewer(receiver, [msg]);
+
+                        // If we have received a new message, it is highly unlikely that the contact is still typing
+                        this.typing.unsetTyping(receiver);
                     }
                     notify = true;
                     break;
@@ -3133,6 +3127,8 @@ export class WebClientService {
             featureMask: 0xFF,
             verificationLevel: 3,
             state: 'ACTIVE',
+            locked: false,
+            visible: true,
             hidden: false,
             access: {
                 canChangeAvatar: true,
@@ -3214,7 +3210,7 @@ export class WebClientService {
         sender: threema.Receiver,
     ): void {
         // Ignore message from active receivers (and if the browser tab is visible)
-        if (this.browserService.isVisible()
+        if (document.hasFocus()
                 && this.receiverService.compare(conversation, this.receiverService.getActive())) {
             return;
         }
@@ -3764,7 +3760,7 @@ export class WebClientService {
             throw new Error(`Cannot send chunk, not supported by task: ${this.chosenTask}`);
         }
         const shouldQueue = canQueue && this.previousChunkCache !== null;
-        let chunkCache;
+        let chunkCache: ChunkCache;
 
         // Enqueue in the chunk cache that is pending to be transferred and
         // send a wakeup push.
@@ -4024,15 +4020,17 @@ export class WebClientService {
         const isOk = stateChange.state === threema.GlobalConnectionState.Ok;
         const wasOk = stateChange.prevState === threema.GlobalConnectionState.Ok;
         if (!isOk && wasOk && this.batteryStatusService.dataAvailable) {
-            this.batteryStatusTimeout = this.$timeout(
+            this.batteryStatusTimeout = this.timeoutService.register(
                 () => {
                     this.batteryStatusService.clearStatus();
                     this.batteryStatusTimeout = null;
                 },
                 60000,
+                true,
+                'batteryStatusHide',
             );
         } else if (isOk && this.batteryStatusTimeout !== null) {
-            this.$timeout.cancel(this.batteryStatusTimeout);
+            this.timeoutService.cancel(this.batteryStatusTimeout);
             this.batteryStatusTimeout = null;
         }
     }

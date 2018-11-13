@@ -19,6 +19,7 @@
 
 import {StateService as UiStateService} from '@uirouter/angularjs';
 
+import {hasValue} from '../helpers';
 import {WebClientService} from '../services/webclient';
 
 /**
@@ -37,37 +38,60 @@ export default [
                 linked: '=?eeeLinked',
                 onRemove: '=?eeeOnRemove',
             },
+            link: function(scope, elem, attrs) {
+                // Manual change detection: Identity
+                scope.$watch(
+                    () => scope.ctrl.identity,
+                    (newIdentity, oldIdentity) => {
+                        if (hasValue(newIdentity) && newIdentity !== oldIdentity) {
+                            scope.ctrl.updateReceiverData();
+                        }
+                    },
+                );
+                // Manual change detection: Contact receiver
+                scope.$watch(
+                    () => scope.ctrl.contactReceiver,
+                    (newReceiver, oldReceiver) => {
+                        if (hasValue(newReceiver)) {
+                            if (!hasValue(oldReceiver) || newReceiver.id !== oldReceiver.id) {
+                                scope.ctrl.updateReceiverData();
+                            }
+                        }
+                    },
+                );
+            },
             controllerAs: 'ctrl',
             controller: [function() {
-                this.$onInit = function() {
+                this.click = () => {
+                    if (this.linked !== undefined
+                        && this.linked === true) {
+                        $state.go('messenger.home.conversation', {type: 'contact', id: this.identity, initParams: null});
+                    }
+                };
+
+                this.showActions = this.onRemove !== undefined;
+
+                this.updateReceiverData = () => {
+                    // Either a receiver or an identity is set
                     if (this.contactReceiver === undefined) {
                         this.contactReceiver = webClientService.contacts.get(this.identity);
                     } else {
                         this.identity = this.contactReceiver.id;
                     }
+                };
 
-                    this.click = () => {
-                        if (this.linked !== undefined
-                            && this.linked === true) {
-                            $state.go('messenger.home.conversation', {type: 'contact', id: this.identity, initParams: null});
-                        }
-                    };
-
-                    this.showActions = this.onRemove !== undefined;
+                this.$onInit = function() {
+                    this.updateReceiverData();
                 };
             }],
             template: `
-                <div class="contact-badge receiver-badge" ng-click="ctrl.click()">
+                <div class="contact-badge receiver-badge" ng-class="{'inactive': ctrl.contactReceiver.state == 'INACTIVE'}" ng-click="ctrl.click()">
                     <section class="avatar-box">
                         <eee-avatar eee-receiver="ctrl.contactReceiver"
                                     eee-resolution="'low'"></eee-avatar>
                     </section>
-                    <div class="receiver-badge-name"
-                        ng-bind-html="ctrl.contactReceiver.displayName | escapeHtml | emojify">
-                    </div>
-                    <div class="contact-badge-identity">
-                        {{ctrl.contactReceiver.id}}
-                    </div>
+                    <div class="receiver-badge-name" ng-bind-html="ctrl.contactReceiver.displayName | escapeHtml | emojify"></div>
+                    <div class="contact-badge-identity">{{ ctrl.contactReceiver.id }}</div>
                     <div class="contact-badge-actions" ng-if="ctrl.showActions">
                         <md-button aria-label="Remove" class="md-icon-button" ng-click="ctrl.onRemove(ctrl.contactReceiver)">
                             <i class="material-icons md-dark md-24">delete</i>

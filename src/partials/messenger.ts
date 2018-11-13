@@ -24,11 +24,10 @@ import {
 } from '@uirouter/angularjs';
 
 import {ContactControllerModel} from '../controller_model/contact';
-import {bufferToUrl, hasValue, logAdapter, supportsPassive, throttle, u8aToHex} from '../helpers';
+import {bufferToUrl, filter, hasValue, logAdapter, supportsPassive, throttle, u8aToHex} from '../helpers';
 import {ContactService} from '../services/contact';
 import {ControllerService} from '../services/controller';
 import {ControllerModelService} from '../services/controller_model';
-import {ExecuteService} from '../services/execute';
 import {FingerPrintService} from '../services/fingerprint';
 import {TrustedKeyStoreService} from '../services/keystore';
 import {MimeService} from '../services/mime';
@@ -36,6 +35,7 @@ import {NotificationService} from '../services/notification';
 import {ReceiverService} from '../services/receiver';
 import {SettingsService} from '../services/settings';
 import {StateService} from '../services/state';
+import {TimeoutService} from '../services/timeout';
 import {VersionService} from '../services/version';
 import {WebClientService} from '../services/webclient';
 import {isContactReceiver} from '../typeguards';
@@ -233,7 +233,6 @@ class ConversationController {
 
     // Angular services
     private $stateParams;
-    private $timeout: ng.ITimeoutService;
     private $state: UiStateService;
     private $log: ng.ILogService;
     private $scope: ng.IScope;
@@ -246,6 +245,7 @@ class ConversationController {
     private receiverService: ReceiverService;
     private stateService: StateService;
     private mimeService: MimeService;
+    private timeoutService: TimeoutService;
 
     // Third party services
     private $mdDialog: ng.material.IDialogService;
@@ -298,14 +298,13 @@ class ConversationController {
     };
 
     public static $inject = [
-        '$stateParams', '$timeout', '$log', '$scope', '$rootScope',
+        '$stateParams', '$log', '$scope', '$rootScope',
         '$mdDialog', '$mdToast', '$translate', '$filter',
         '$state', '$transitions',
         'WebClientService', 'StateService', 'ReceiverService', 'MimeService', 'VersionService',
-        'ControllerModelService',
+        'ControllerModelService', 'TimeoutService',
     ];
     constructor($stateParams: ConversationStateParams,
-                $timeout: ng.ITimeoutService,
                 $log: ng.ILogService,
                 $scope: ng.IScope,
                 $rootScope: ng.IRootScopeService,
@@ -320,14 +319,15 @@ class ConversationController {
                 receiverService: ReceiverService,
                 mimeService: MimeService,
                 versionService: VersionService,
-                controllerModelService: ControllerModelService) {
+                controllerModelService: ControllerModelService,
+                timeoutService: TimeoutService) {
         this.$stateParams = $stateParams;
-        this.$timeout = $timeout;
         this.$log = $log;
         this.webClientService = webClientService;
         this.receiverService = receiverService;
         this.stateService = stateService;
         this.mimeService = mimeService;
+        this.timeoutService = timeoutService;
 
         this.$state = $state;
         this.$scope = $scope;
@@ -868,10 +868,10 @@ class ConversationController {
             this.msgReadReportPending = true;
             const receiver = angular.copy(this.receiver);
             receiver.type = this.type;
-            this.$timeout(() => {
+            this.timeoutService.register(() => {
                 this.webClientService.requestRead(receiver, this.lastReadMsg);
                 this.msgReadReportPending = false;
-            }, 300);
+            }, 300, false, 'requestRead');
         }
     }
 
@@ -971,7 +971,24 @@ class NavigationController {
     }
 
     public contacts(): threema.ContactReceiver[] {
-        return Array.from(this.webClientService.contacts.values()) as threema.ContactReceiver[];
+        const contacts = [];
+        // Since `values()` on a map returns an iterator, we cannot directly
+        // apply the `.filter()` method that arrays provide. Therefore, in
+        // order to avoid creating an intermediate array just for filtering,
+        // create the list of contacts imperatively.
+        for (const contact of this.webClientService.contacts.values()) {
+            // Exclude own contact
+            if (contact.id === this.webClientService.receivers.me.id) {
+                continue;
+            }
+            // Exclude hidden contacts
+            if (contact.hidden === true) {
+                continue;
+            }
+            // Otherwise add to results
+            contacts.push(contact);
+        }
+        return contacts;
     }
 
     /**
@@ -1304,8 +1321,10 @@ class ReceiverDetailController {
 
             this.contactService.requiredDetails(contactReceiver)
                 .then(() => {
-                    this.hasSystemEmails = contactReceiver.systemContact.emails.length > 0;
-                    this.hasSystemPhones = contactReceiver.systemContact.phoneNumbers.length > 0;
+                    this.hasSystemEmails = contactReceiver.systemContact !== undefined
+                        && contactReceiver.systemContact.emails.length > 0;
+                    this.hasSystemPhones = contactReceiver.systemContact !== undefined &&
+                        contactReceiver.systemContact.phoneNumbers.length > 0;
                 })
                 .catch((error) => {
                     // TODO: Redirect or show an alert?
@@ -1451,25 +1470,26 @@ class ReceiverEditController {
     private logTag: string = '[ReceiverEditController]';
 
     public $mdDialog: any;
+    private $scope: ng.IScope;
     public $state: UiStateService;
     private $translate: ng.translate.ITranslateService;
 
     public title: string;
     private $timeout: ng.ITimeoutService;
-    private execute: ExecuteService;
-    public loading = false;
+    private future: Future<threema.Receiver>;
 
     private controllerModel: threema.ControllerModel<threema.Receiver>;
     public type: string;
 
     public static $inject = [
-        '$log', '$stateParams', '$state', '$mdDialog',
+        '$log', '$scope', '$stateParams', '$state', '$mdDialog',
         '$timeout', '$translate', 'WebClientService', 'ControllerModelService',
     ];
-    constructor($log: ng.ILogService, $stateParams, $state: UiStateService,
+    constructor($log: ng.ILogService, $scope: ng.IScope, $stateParams, $state: UiStateService,
                 $mdDialog, $timeout: ng.ITimeoutService, $translate: ng.translate.ITranslateService,
                 webClientService: WebClientService, controllerModelService: ControllerModelService) {
 
+        this.$scope = $scope;
         this.$mdDialog = $mdDialog;
         this.$state = $state;
         this.$timeout = $timeout;
@@ -1508,8 +1528,6 @@ class ReceiverEditController {
                 return;
         }
         this.type = receiver.type;
-
-        this.execute = new ExecuteService($log, $timeout, 1000);
     }
 
     public keypress($event: KeyboardEvent): void {
@@ -1519,22 +1537,22 @@ class ReceiverEditController {
     }
 
     public save(): void {
-        // show loading
-        this.loading = true;
-
-        // validate first
-        this.execute.execute(this.controllerModel.save())
-            .then((receiver: threema.Receiver) => {
-                this.goBack();
+        this.future = Future.withMinDuration(this.controllerModel.save(), 100);
+        this.future
+            .then(() => {
+                this.$scope.$apply(() => {
+                    this.goBack();
+                });
             })
             .catch((errorCode) => {
-                this.showEditError(errorCode);
+                this.$scope.$apply(() => {
+                    this.showEditError(errorCode);
+                });
             });
     }
 
     public isSaving(): boolean {
-        return this.execute !== undefined
-            && this.execute.isRunning();
+        return this.future !== undefined && !this.future.done;
     }
 
     private showEditError(errorCode: string): void {
@@ -1568,7 +1586,7 @@ class ReceiverCreateController {
     private logTag: string = '[ReceiverEditController]';
 
     public $mdDialog: any;
-    private loading = false;
+    private $scope: ng.IScope;
     private $timeout: ng.ITimeoutService;
     private $log: ng.ILogService;
     private $state: UiStateService;
@@ -1576,16 +1594,17 @@ class ReceiverCreateController {
     public identity = '';
     private $translate: any;
     public type: string;
-    private execute: ExecuteService;
+    private future: Future<threema.Receiver>;
 
     public controllerModel: threema.ControllerModel<threema.Receiver>;
 
-    public static $inject = ['$stateParams', '$mdDialog', '$mdToast', '$translate',
+    public static $inject = ['$stateParams', '$mdDialog', '$scope', '$mdToast', '$translate',
         '$timeout', '$state', '$log', 'ControllerModelService'];
-    constructor($stateParams: CreateReceiverStateParams, $mdDialog, $mdToast, $translate,
+    constructor($stateParams: CreateReceiverStateParams, $mdDialog, $scope: ng.IScope, $mdToast, $translate,
                 $timeout: ng.ITimeoutService, $state: UiStateService, $log: ng.ILogService,
                 controllerModelService: ControllerModelService) {
         this.$mdDialog = $mdDialog;
+        this.$scope = $scope;
         this.$timeout = $timeout;
         this.$state = $state;
         this.$log = $log;
@@ -1614,11 +1633,10 @@ class ReceiverCreateController {
             default:
                 this.$log.error('invalid type', this.type);
         }
-        this.execute = new ExecuteService($log, $timeout, 1000);
     }
 
     public isSaving(): boolean {
-        return this.execute.isRunning();
+        return this.future !== undefined && !this.future.done;
     }
 
     public goBack(): void {
@@ -1647,15 +1665,19 @@ class ReceiverCreateController {
     }
 
     public create(): void {
-        // Show loading indicator
-        this.loading = true;
-
         // Save, then go to receiver detail page
-        this.execute.execute(this.controllerModel.save())
+        this.future = Future.withMinDuration(this.controllerModel.save(), 100);
+        this.future
             .then((receiver: threema.Receiver) => {
-                this.$state.go('messenger.home.detail', receiver, {location: 'replace'});
+                this.$scope.$apply(() => {
+                    this.$state.go('messenger.home.detail', receiver, {location: 'replace'});
+                });
             })
-            .catch(this.showAddError.bind(this));
+            .catch((errorCode) => {
+                this.$scope.$apply(() => {
+                    this.showAddError(errorCode);
+                });
+            });
     }
 }
 

@@ -4,53 +4,43 @@ This changelog lists the most important changes for each released version. For
 the full log, please refer to the git commit history.
 
 
-### [v2.1.0-beta.6][v2.1.0-beta.6] (2018-10-11)
+### [v2.1.1][v2.1.1] (2018-10-29)
 
 Changes:
 
+* [feature] Improved troubleshooting tool ([#648][i648])
+* [change] Latest message text: Show "GIF" for GIFs ([#649][i649])
+* [bug] Accessibility improvements ([#656][i656])
+
+Contributors:
+
+- [@MarcoZehe][@MarcoZehe]
+
+
+### [v2.1.0][v2.1.0] (2018-10-23)
+
+Changes:
+
+* [feature] Implement ack protocol for iOS session resumption ([#551][i551])
 * [feature] Implement pinning of conversations ([#361][i361])
-* [change] Make default avatar colors less aggressive
 * [change] New stack based markup parser ([#453][i453] / [#458][i458] / [#590][i590])
+* [change] Accessibility improvements ([#562][i562] / [#618][i618] / [#622][i622] / [#636][i636])
+* [change] Hide WebRTC troubleshooting when using iOS ([#625][i625])
+* [change] Use window focus instead of page visibility to mark messages as read ([#644][i644])
+* [bug] Don't linkify latest message excerpt in conversation list ([#544][i544])
+* [bug] Workaround for conversation loading bug in Safari ([#602][i602])
 * [bug] Fix marking of read messages with duplicate sort key ([#606][i606])
 * [bug] Compose area: Fix newlines in Safari ([#613][i613])
 * [bug] Fix largeSingleEmoji setting ([#610][i610])
+* [bug] Copy to clipboard: Workaround for Safari on iOS ([#626][i626])
+* [bug] Clear isTyping flag when receiving message ([#637][i637])
+* [bug] Fix updating of message caption ([#638][i638])
+* [bug] Hide image preview when redirecting ([#640][i640])
+* [bug] Fix updating of avatars in contact autocomplete box ([#643][i643])
 
+Contributors:
 
-### [v2.1.0-beta.5][v2.1.0-beta.5] (2018-10-04)
-
-Changes:
-
-* [bug] Workaround for conversation loading bug in Safari ([#602][i602])
-
-
-### [v2.1.0-beta.4][v2.1.0-beta.4] (2018-09-27)
-
-Changes:
-
-* [bug] Connectivity improvements for iOS ([#597][i597])
-
-
-### [v2.1.0-beta.3][v2.1.0-beta.3] (2018-09-18)
-
-Changes:
-
-* [bug] Don't linkify latest message excerpt in conversation list ([#544][i544])
-
-
-### [v2.1.0-beta.2][v2.1.0-beta.2] (2018-09-13)
-
-Changes:
-
-* [bug] Accessibility fixes and improvements ([#562][i562])
-* [bug] Session resumption bugfixes ([#586][i586])
-* [bug] Remove compatibility footer and beta notes
-
-
-### [v2.1.0-beta.1][v2.1.0-beta.1] (2018-09-10)
-
-Changes:
-
-* [feature] Implement ack protocol for session resumption ([#551][i551])
+- [@MarcoZehe][@MarcoZehe]
 
 
 ### [v2.0.3][v2.0.3] (2018-08-23)
@@ -592,20 +582,28 @@ First public release.
 [i567]: https://github.com/threema-ch/threema-web/issues/567
 [i569]: https://github.com/threema-ch/threema-web/issues/569
 [i572]: https://github.com/threema-ch/threema-web/issues/572
-[i586]: https://github.com/threema-ch/threema-web/issues/586
 [i590]: https://github.com/threema-ch/threema-web/pull/590
 [i597]: https://github.com/threema-ch/threema-web/pull/597
 [i602]: https://github.com/threema-ch/threema-web/pull/602
 [i606]: https://github.com/threema-ch/threema-web/pull/606
 [i610]: https://github.com/threema-ch/threema-web/pull/610
 [i613]: https://github.com/threema-ch/threema-web/pull/613
+[i618]: https://github.com/threema-ch/threema-web/pull/618
+[i622]: https://github.com/threema-ch/threema-web/pull/622
+[i625]: https://github.com/threema-ch/threema-web/pull/625
+[i626]: https://github.com/threema-ch/threema-web/pull/626
+[i636]: https://github.com/threema-ch/threema-web/pull/636
+[i637]: https://github.com/threema-ch/threema-web/pull/637
+[i638]: https://github.com/threema-ch/threema-web/pull/638
+[i640]: https://github.com/threema-ch/threema-web/pull/640
+[i643]: https://github.com/threema-ch/threema-web/pull/643
+[i644]: https://github.com/threema-ch/threema-web/pull/644
+[i648]: https://github.com/threema-ch/threema-web/pull/648
+[i649]: https://github.com/threema-ch/threema-web/pull/649
+[i656]: https://github.com/threema-ch/threema-web/pull/656
 
-[v2.1.0-beta.1]: https://github.com/threema-ch/threema-web/compare/v2.0.3...v2.1.0-beta.1
-[v2.1.0-beta.2]: https://github.com/threema-ch/threema-web/compare/v2.1.0-beta.1...v2.1.0-beta.2
-[v2.1.0-beta.3]: https://github.com/threema-ch/threema-web/compare/v2.1.0-beta.2...v2.1.0-beta.3
-[v2.1.0-beta.4]: https://github.com/threema-ch/threema-web/compare/v2.1.0-beta.3...v2.1.0-beta.4
-[v2.1.0-beta.5]: https://github.com/threema-ch/threema-web/compare/v2.1.0-beta.4...v2.1.0-beta.5
-[v2.1.0-beta.6]: https://github.com/threema-ch/threema-web/compare/v2.1.0-beta.5...v2.1.0-beta.6
+[v2.1.1]: https://github.com/threema-ch/threema-web/compare/v2.1.0...v2.1.1
+[v2.1.0]: https://github.com/threema-ch/threema-web/compare/v2.0.3...v2.1.0
 [v2.0.3]: https://github.com/threema-ch/threema-web/compare/v2.0.2...v2.0.3
 [v2.0.2]: https://github.com/threema-ch/threema-web/compare/v2.0.1...v2.0.2
 [v2.0.1]: https://github.com/threema-ch/threema-web/compare/v2.0.0...v2.0.1
@@ -649,3 +647,4 @@ First public release.
 [@heckenmann]: https://github.com/heckenmann
 [@iasdeoupxe]: https://github.com/iasdeoupxe
 [@SirTyson]: https://github.com/SirTyson
+[@MarcoZehe]: https://github.com/MarcoZehe

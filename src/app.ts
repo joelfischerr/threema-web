@@ -27,6 +27,7 @@ import './filters';
 import './partials/messenger';
 import './partials/welcome';
 import './services';
+import {BrowserService} from './services/browser';
 import './threema/container';
 
 // Configure asynchronous events
@@ -40,6 +41,7 @@ angular.module('3ema', [
     // Angular
     'ngAnimate',
     'ngSanitize',
+    'ngAria',
 
     // 3rd party
     'ui.router',
@@ -137,5 +139,36 @@ angular.module('3ema', [
         };
     }]);
 }])
+
+.run([
+    '$log', 'CONFIG', 'BrowserService',
+    function($log: ng.ILogService, CONFIG: threema.Config, browserService: BrowserService) {
+        // For Safari (when in DEBUG mode), monkey-patch $log to show timestamps.
+
+        if (!(CONFIG.DEBUG && browserService.getBrowser().isSafari(false))) {
+            return;
+        }
+
+        const oldLog = $log.log;
+        const oldInfo = $log.info;
+        const oldWarn = $log.warn;
+        const oldDebug = $log.debug;
+        const oldError = $log.error;
+
+        function enhanceLogging(wrapped) {
+            return function(data) {
+                const now = new Date();
+                const currentDate = `[${now.toISOString()}.${now.getMilliseconds()}]`;
+                wrapped.apply(this, [currentDate, ...arguments]);
+            };
+        }
+
+        $log.log = enhanceLogging(oldLog);
+        $log.info = enhanceLogging(oldInfo);
+        $log.warn = enhanceLogging(oldWarn);
+        $log.debug = enhanceLogging(oldDebug);
+        $log.error = enhanceLogging(oldError);
+    },
+])
 
 ;

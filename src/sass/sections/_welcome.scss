@@ -194,10 +194,12 @@
     .notification {
         flex-direction: horizontal;
         padding: 8px;
+                color: $text-bright-background-welcome-color;
         background-color: #ff9800;
         margin-bottom: 16px;
         p {
             font-size: 0.8em;
+                color: $text-bright-background-welcome-color;
             line-height: 1.4em;
             font-weight: bold;
             text-align: center;

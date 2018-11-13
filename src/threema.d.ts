@@ -232,10 +232,10 @@ declare namespace threema {
         access: ReceiverAccess;
 
         // Whether the chat with this receiver is locked. Used for private chats.
-        locked?: boolean;
+        locked: boolean;
 
         // Whether the chat with this receiver is visible. Used for private chats.
-        visible?: boolean;
+        visible: boolean;
     }
 
     /**
@@ -258,7 +258,7 @@ declare namespace threema {
         verificationLevel?: number;
 
         // Feature mask
-        featureMask: number | null;
+        featureMask: number;
 
         // The identity state
         state: 'ACTIVE' | 'INACTIVE';
@@ -661,12 +661,25 @@ declare namespace threema {
     }
 
     interface ClientInfo {
+        // The device name
         device: string;
+
+        // The operating system
         os: OperatingSystem;
+
+        // The operating system version (e.g. "5.1")
         osVersion: string;
+
+        // Whether the app is the *work* variant of Threema
         isWork: boolean;
+
+        // The GCM / APNS push token
         pushToken?: string;
+
+        // The device configuration
         configuration: AppConfig;
+
+        // The device capabilities
         capabilities: AppCapabilities;
     }
 
@@ -818,10 +831,10 @@ declare namespace threema {
         }
 
         interface Typing {
-            setTyping(receiver: ContactReceiver): void;
-            unsetTyping(receiver: ContactReceiver): void;
+            setTyping(receiver: BaseReceiver): void;
+            unsetTyping(receiver: BaseReceiver): void;
             clearAll(): void;
-            isTyping(receiver: ContactReceiver): boolean;
+            isTyping(receiver: BaseReceiver): boolean;
         }
 
         interface Drafts {
