@@ -32,9 +32,11 @@ $material-card-shadow-color: 0px 2px 5px 0px rgba(0, 0, 0, 0.16),
 $text-bright-background-color: rgb(206, 206, 206);
 $text-bright-background-welcome-color: black;
 $text-dark-background-color: rgb(165, 165, 165);
+$latest-message-text-color: $text-dark-background-color;
 $text-protocol-updated-color: #9dd0f2;
 $text-on-background-topheader-offset-color: white;
 $text-in-unread-count-offset-color: white;
+$text-placeholder-color: $latest-message-text-color;
 // Icon colors
 $icon-color: white;
 $dark-icon-color: gray;

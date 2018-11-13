@@ -29,20 +29,20 @@
     input {
         border-color: $threema-green;
         caret-color: $threema-green;
-        color: $text-bright-background-welcome-color;
+        color: $text-placeholder-color;
     }
 
     ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: $text-bright-background-welcome-color;
+        color: $text-placeholder-color;
         opacity: 1; /* Firefox */
     }
     
     :-ms-input-placeholder { /* Internet Explorer 10-11 */
-        color: $text-bright-background-welcome-color;
+        color: $text-placeholder-color;
     }
     
     ::-ms-input-placeholder { /* Microsoft Edge */
-        color: $text-bright-background-welcome-color;
+        color: $text-placeholder-color;
     }
 
     .scan {
@@ -65,7 +65,7 @@
         }
 
         .password-entry {
-            background-color: $background-welcome-light-color;
+            // background-color: $background-welcome-light-color;
             margin-top: 16px;
         }
 

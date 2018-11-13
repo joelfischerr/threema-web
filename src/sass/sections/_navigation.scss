@@ -125,8 +125,8 @@
             flex-direction: row;
             align-items: center;
             padding: (1.5 * $main-padding) $main-padding - ($border-width * ($border-count - 1));
-            border-left: $border-width * $border-count solid $background-light-color;
-            background-color: $background-light-color;
+            border-left: $border-width * $border-count solid $background-very-light-color;
+            background-color: $background-very-light-color;
 
             &.active, &:hover {
                 background-color: $background-dark-color;
@@ -212,7 +212,7 @@
                         flex-direction: row;
                         justify-content: space-between;
                         align-items: center;
-                        color: $text-bright-background-color;
+                        color: $latest-message-text-color;
 
                         .left {
                             // $background-light-color-space: nowrap;
@@ -312,7 +312,7 @@
         justify-content: flex-start;
         align-items: center;
         padding: 12px 8px;
-        border-left: 4px solid $background-light-color;
+        border-left: 4px solid $background-very-light-color;
         
 
         @include nav-item-separator;
