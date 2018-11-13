@@ -221,59 +221,6 @@ export class NotificationService {
             this.storeSetting(NotificationService.SETTINGS_NOTIFICATIONS, 'false');
         }
     }
-
-    /**
-     * Sets the theme to themeName
-     */
-    public setTheme(themeName: string): void {
-        this.$log.info(this.logTag, 'Set a new theme', themeName);
-        this.storeSetting('ThemeService.THEME_SETTING', themeName);
-        this.runTheme();
-    }
-
-    /**
-     * Retrieves the theme from settings
-     */
-    public getTheme(): string {
-        return this.retrieveSetting('ThemeService.THEME_SETTING');
-    }
-
-    /**
-     * Changes the theme to the one currently stored in the settings
-     */
-    public runTheme() {
-        let themeName = this.getTheme();
-        this.$log.warn(this.logTag, 'Setting the theme to: ', themeName);
-
-        if (themeName === 'Dark (Black)') {
-            themeName = 'app-dark.css';
-        } else if (themeName === 'Dark (Blue)') {
-            themeName = 'app-dark.css';
-        } else if (themeName === 'Light (White)') {
-            themeName = 'app-light.css';
-        } else if (themeName === 'Light (Grey)') {
-            themeName = 'app-light.css';
-        } else {
-            themeName = 'app-light.css';
-        }
-
-        this.$log.warn(this.logTag, 'Setting the link to: ', '/css/' + themeName);
-
-        // Copied from StackOverflow: https://stackoverflow.com/a/577002/2310837
-        // you could encode the css path itself to generate id..
-        const cssId = 'themeID';
-        const head = document.getElementsByTagName('head')[0];
-        const oldTheme = document.getElementById(cssId);
-        const link = document.createElement('link');
-        link.id = cssId;
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = '/css/' + themeName;
-        link.media = 'all';
-        head.appendChild(link);
-        head.removeChild(oldTheme);
-    }
-
     /**
      * Sets if the user wants a message preview
      */

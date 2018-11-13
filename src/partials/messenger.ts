@@ -35,6 +35,7 @@ import {NotificationService} from '../services/notification';
 import {ReceiverService} from '../services/receiver';
 import {SettingsService} from '../services/settings';
 import {StateService} from '../services/state';
+import {ThemeService} from '../services/theme';
 import {TimeoutService} from '../services/timeout';
 import {VersionService} from '../services/version';
 import {WebClientService} from '../services/webclient';
@@ -131,12 +132,13 @@ class SendFileController extends DialogController {
  */
 class SettingsController {
 
-    public static $inject = ['$mdDialog', '$window', 'SettingsService', 'NotificationService'];
+    public static $inject = ['$mdDialog', '$window', 'SettingsService', 'NotificationService', 'ThemeService'];
 
     public $mdDialog: ng.material.IDialogService;
     public $window: ng.IWindowService;
     public settingsService: SettingsService;
     private notificationService: NotificationService;
+    private themeService: ThemeService;
     public activeElement: HTMLElement | null;
 
     private desktopNotifications: boolean;
@@ -152,7 +154,8 @@ class SettingsController {
     constructor($mdDialog: ng.material.IDialogService,
                 $window: ng.IWindowService,
                 settingsService: SettingsService,
-                notificationService: NotificationService) {
+                notificationService: NotificationService,
+                themeService: ThemeService) {
         this.$mdDialog = $mdDialog;
         this.$window = $window;
         this.settingsService = settingsService;
@@ -163,6 +166,8 @@ class SettingsController {
         this.notificationPermission = notificationService.getNotificationPermission();
         this.notificationPreview = notificationService.getWantsPreview();
         this.notificationSound = notificationService.getWantsSound();
+        this.themeService  = themeService;
+        this.themeName = notificationService.getTheme();
     }
 
     public cancel(): void {
@@ -196,12 +201,11 @@ class SettingsController {
 
     public setTheme() {
 
-
         if (this.themeName === undefined || this.themeName === '') {
             // No theme selected
         } else {
             // Hello world
-            this.notificationService.setTheme(this.themeName);
+            this.themeService.setTheme(this.themeName);
         }
 
     }
