@@ -2,26 +2,23 @@
     position: relative;
     top: -18px;
     right: 24px;
-
     &.alert md-icon {
-        color: $status-error;
+        color: $status-error-color;
     }
-
     md-icon {
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
     }
-
-    md-icon, span {
+    md-icon,
+    span {
         width: 24px;
         height: 24px;
         line-height: 24px;
         position: absolute;
         top: 1px;
     }
-
     .battery-percent {
         font-size: 0.8em;
         font-family: monospace;
