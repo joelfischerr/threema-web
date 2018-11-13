@@ -167,7 +167,7 @@ class SettingsController {
         this.notificationPreview = notificationService.getWantsPreview();
         this.notificationSound = notificationService.getWantsSound();
         this.themeService  = themeService;
-        this.themeName = notificationService.getTheme();
+        this.themeName = themeService.getTheme();
     }
 
     public cancel(): void {
@@ -212,9 +212,9 @@ class SettingsController {
 
     public getTheme(): string {
 
-        this.themeName = this.notificationService.getTheme();
+        this.themeName = this.themeService.getTheme();
         if (this.themeName === undefined || this.themeName === '') {
-            this.notificationService.setTheme(this.themeOptions[0]);
+            this.themeService.setTheme(this.themeOptions[0]);
             this.themeName = this.themeOptions[0];
         }
 
