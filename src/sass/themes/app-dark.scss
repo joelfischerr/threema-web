@@ -4,7 +4,11 @@
 // // See here for the scope of the variables: https://stackoverflow.com/questions/12365703/scss-variable-scope#30009712
 
 $wallpaper: "../img/wallpaper_light.png?"; // TODO: Use a darker wallpaper
+// Define colors
+$almost-black: rgb(27, 27, 27);
 $threema-green: rgb(0, 150, 136);
+$very-dark-gray: rgb(46, 46, 46);
+$standard-gray: rgb(83, 83, 83);
 // Status colors
 $status-ok-color: #4caf50;
 $status-warning-color: #ff9800;
@@ -15,11 +19,11 @@ $border-grey: rgb(99, 99, 99) !default;
 $border-color: rgb(119, 119, 119);
 // Background colors
 // $background-grey-color: lighten($border-grey, 7%) !default;
-$background-dark-color: rgb(27, 27, 27) !default;
-$background-light-color: rgb(46, 46, 46) !default;
+$background-dark-color: $almost-black !default;
+$background-light-color: $very-dark-gray !default;
 $background-welcome-light-color: white !default;
 // $background-light-color: white !default;
-$background-very-light-color: rgb(83, 83, 83) !default;
+$background-very-light-color: $standard-gray !default;
 $background-topheader-offset-color: #424242;
 $conversation-header-color: $background-dark-color;
 // Material colors
