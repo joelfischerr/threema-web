@@ -430,6 +430,9 @@ export class WebClientService {
         // Create new handshake future
         this.connectionInfoFuture = new Future();
 
+        // Set the theme
+        this.notificationService.runTheme();
+
         // Create WebRTC task instance
         const maxPacketSize = this.browserService.getBrowser().isFirefox(false) ? 16384 : 65536;
         this.webrtcTask = new saltyrtcTaskWebrtc.WebRTCTask(true, maxPacketSize, this.config.SALTYRTC_LOG_LEVEL);
@@ -3132,7 +3135,7 @@ export class WebClientService {
                 canChangeFirstName: true,
                 canChangeLastName: true,
             },
-            color: '#000000',
+            color: 'rgb(0, 150, 136)',
         });
 
         this.registerInitializationStep(InitializationStep.Profile);
