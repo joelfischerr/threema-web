@@ -261,7 +261,7 @@ export class NotificationService {
 
         // Copied from StackOverflow: https://stackoverflow.com/a/577002/2310837
         // you could encode the css path itself to generate id..
-        const cssId = 'themeIDkals';
+        const cssId = 'themeID';
         const head = document.getElementsByTagName('head')[0];
         const oldTheme = document.getElementById(cssId);
         const link = document.createElement('link');
