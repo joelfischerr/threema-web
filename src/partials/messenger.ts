@@ -200,26 +200,11 @@ class SettingsController {
     }
 
     public setTheme() {
-
-        if (this.themeName === undefined || this.themeName === '') {
-            // No theme selected
-        } else {
-            // Hello world
             this.themeService.setTheme(this.themeName);
-        }
-
     }
 
     public getTheme(): string {
-
         this.themeName = this.themeService.getTheme();
-        if (this.themeName === undefined || this.themeName === '') {
-            this.themeService.setTheme(this.themeOptions[0]);
-            this.themeName = this.themeOptions[0];
-        }
-
-        // this.themeName = "Dark Theme";
-
         return this.themeName;
     }
 
