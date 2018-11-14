@@ -9,6 +9,7 @@
     .detail-header {
 
         color: $text-dark-background-color;
+        background-color: $background-topheader-offset-color;
 
         .header-avatar {
             @include mouse-hand;

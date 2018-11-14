@@ -109,7 +109,7 @@
     $border-width: 4px;
     $border-count: 2;
     overflow-y: auto;
-    background-color: $background-light-color;
+    // background-color: $conversation-background-color;
     flex: 1;
     .loading-element {
         margin-top: 50px;
@@ -118,7 +118,7 @@
     .conversation-wrapper {
         display: block;
         @include nav-item-separator;
-        background-color: $background-light-color;
+        background-color: $conversation-background-color;
 
         .conversation {
             display: flex;
@@ -129,27 +129,33 @@
             background-color: $background-very-light-color;
 
             &.active, &:hover {
-                background-color: $background-dark-color;
-                border-color: $background-dark-color;
+                background-color: $conversation-background-highlight-color;
+                border-color: $conversation-background-highlight-color;
             }
             &:hover:not(.active) {
                 @include mouse-hand;
-                background-color: $background-dark-color;
+                background-color: $conversation-background-highlight-color;
             }
 
             // Only unread
             &.unread {
-                border-image: linear-gradient(to right, $status-error-color, $status-error-color 50%, $background-light-color 50%, $background-light-color 100%) 1 100%;
+                border-image: linear-gradient(to right, $status-error-color, $status-error-color 50%, $background-very-light-color 50%, $background-very-light-color 100%) 1 100%;
                 &.active {
-                    border-image: linear-gradient(to right, $status-error-color, $status-error-color 50%, $background-dark-color 50%, $background-dark-color 100%) 1 100%;
+                    border-image: linear-gradient(to right, $status-error-color, $status-error-color 50%, $conversation-background-highlight-color 50%, $conversation-background-highlight-color 100%) 1 100%;
+                }
+                &:hover {
+                    border-image: linear-gradient(to right, $status-error-color, $status-error-color 50%, $conversation-background-highlight-color 50%, $conversation-background-highlight-color 100%) 1 100%;
                 }
             }
 
             // Only starred
             &.starred {
-                border-image: linear-gradient(to right, $status-starred-color, $status-starred-color 50%, $background-light-color 50%, $background-light-color 100%) 1 100%;
+                border-image: linear-gradient(to right, $status-starred-color, $status-starred-color 50%, $background-very-light-color 50%, $background-very-light-color 100%) 1 100%;
                 &.active {
-                    border-image: linear-gradient(to right, $status-starred-color, $status-starred-color 50%, $background-dark-color 50%, $background-dark-color 100%) 1 100%;
+                    border-image: linear-gradient(to right, $status-starred-color, $status-starred-color 50%, $conversation-background-highlight-color 50%, $conversation-background-highlight-color 100%) 1 100%;
+                }
+                &:hover {
+                    border-image: linear-gradient(to right, $status-starred-color, $status-starred-color 50%, $conversation-background-highlight-color 50%, $conversation-background-highlight-color 100%) 1 100%;
                 }
             }
 
@@ -313,6 +319,7 @@
         align-items: center;
         padding: 12px 8px;
         border-left: 4px solid $background-very-light-color;
+        background-color: $background-very-light-color;
         
 
         @include nav-item-separator;
