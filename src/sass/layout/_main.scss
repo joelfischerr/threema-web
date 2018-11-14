@@ -401,10 +401,10 @@ md-list-item .md-list-item-inner>md-checkbox .md-label {
 }
 
 md-toolbar:not(.md-menu-toolbar) {
-    background-color: $background-dark-color;
-    color: $text-dark-background-color;
+    background-color: $md-toolbar-color;
+    color: $md-toolbar-text-color;
     
     .md-button.md-icon-button md-icon {
-        color: $button-color-enabled;
+        color: $md-toolbar-button-color;
     }
 }
