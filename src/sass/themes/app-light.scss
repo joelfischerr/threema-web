@@ -40,6 +40,9 @@ $text-on-background-topheader-offset-color: white;
 $text-in-unread-count-offset-color: white;
 $conversation-background-color: $background-dark-color;
 $conversation-background-highlight-color: $background-light-color;
+$md-toolbar-color: $background-topheader-offset-color;
+$md-toolbar-text-color: white;
+$md-toolbar-button-color: white;
 // Icon colors
 $icon-color: black;
 $dark-icon-color: black;
@@ -54,8 +57,8 @@ $active-placeholder-color: lightgray !default;
 $work-blue-color: #3b84df;
 // Button colors
 $button-color: $material-grey-color;
-$button-color-enabled: rgb(65, 65, 65) !default;
-$button-color-disabled: rgba(65, 65, 65, 0.65) !default;
+$button-color-enabled: rgb(65, 65, 65);
+$button-color-disabled: rgba(65, 65, 65, 0.65);
 $button-color-pressed: rgb(55, 55, 55);
 $button-text-color: rgb(255, 255, 255);
 .color-status-ok {
