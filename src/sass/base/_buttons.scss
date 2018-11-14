@@ -1,0 +1,40 @@
+.md-button {
+    // color: $text-dark-background-color;
+    // background-color: red;
+}
+
+md-dialog md-dialog-actions .md-button {
+    background-color: $button-color-enabled;
+}
+
+.material-icons.md-light {
+    color: $dark-icon-color;
+}
+
+md-select {
+    // border-bottom-color: pink;
+}
+
+md-select .md-select-value.md-select-placeholder {
+    color: $text-dark-background-color;
+}
+md-select .md-select-value {
+    color: $text-dark-background-color;
+}
+
+.md-select-value .md-select-icon {
+    color: $text-dark-background-color;
+}
+
+.md-select-menu-container.md-active md-select-menu>* {
+    background-color: $background-dark-color;
+    color: $text-dark-background-color;
+}
+
+md-select-menu md-content md-option {
+    color: $text-dark-background-color;
+}
+
+md-select:not([disabled]):focus .md-select-value {
+    color: $text-dark-background-color;
+}
