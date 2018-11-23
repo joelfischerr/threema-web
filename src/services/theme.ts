@@ -56,7 +56,14 @@ export class ThemeService {
      * Retrieves the theme from settings
      */
     public getTheme(): string {
-        return this.retrieveSetting('ThemeService.THEME_SETTING');
+
+        let theme = this.retrieveSetting('ThemeService.THEME_SETTING');
+
+        if (!theme) {
+            theme = 'Light (White)';
+        }
+
+        return theme;
     }
 
     /**
