@@ -4,13 +4,11 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-bin_path=node_modules/.bin
-browser=$1
-shift
+export PATH=$PATH:"$(pwd)/node_modules/.bin/"
 
-$bin_path/concurrently \
+concurrently \
     --kill-others \
     -s first \
     --names \"server,test\" \
     "npm run testserver" \
-    "$bin_path/testcafe $browser tests/ui/run.ts $*"
+    "ts-node --skip-project -O '{\"target\": \"ES2015\"}' tests/ui/run.ts $*"

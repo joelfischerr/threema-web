@@ -71,12 +71,16 @@ To run unit tests:
 
 To run UI tests:
 
-    npm run test:uitests <browser>
+    npm run test:ui <browser>
 
 For example:
 
-    npm run test:uitests firefox
-    npm run test:uitests chromium:headless
+    npm run test:ui firefox
+    npm run test:ui chrome
+
+You can also filter the test cases:
+
+    npm run test:ui firefox emoji
 
 To run linting checks:
 
