@@ -38,6 +38,7 @@ $material-card-shadow-color: 0px 2px 5px 0px rgba(0, 0, 0, 0.16),
 $text-bright-background-color: rgb(206, 206, 206);
 $text-bright-background-welcome-color: black;
 $text-dark-background-color: rgb(165, 165, 165);
+$text-dark-background-color-2: $text-dark-background-color;
 $latest-message-text-color: $text-dark-background-color;
 $text-protocol-updated-color: #9dd0f2;
 $text-on-background-topheader-offset-color: white;
@@ -50,6 +51,7 @@ $md-toolbar-button-color: rgb(65, 65, 65) !default;
 $icon-color: white;
 $dark-icon-color: gray;
 $icon-medium-dark-color: gray;
+$bright-icon-color: gray;
 // Message bubble colors
 $message-quote-color: $threema-green;
 $message-bubble-color-in: rgb(31, 25, 25) !default;

@@ -3,7 +3,7 @@
 // // Otherwise this seems fine and is what dbrgn has described in https://github.com/threema-ch/threema-web/pull/110
 // // See here for the scope of the variables: https://stackoverflow.com/questions/12365703/scss-variable-scope#30009712
 
-$wallpaper: "../img/wallpaper_light.png?";
+$wallpaper: "../img/wallpaper_light.png";
 $threema-green: rgb(0, 150, 136);
 $dark-gray: rgb(83, 83, 83);
 $middle-gray: rgb(112, 112, 112);
@@ -36,6 +36,7 @@ $text-bright-background-color: black;
 $text-bright-background-welcome-color: black;
 $text-placeholder-color: $latest-message-text-color;
 $text-dark-background-color: black;
+$text-dark-background-color-2: white;
 $text-protocol-updated-color: #9dd0f2;
 $text-on-background-topheader-offset-color: white;
 $text-in-unread-count-offset-color: white;
@@ -47,6 +48,7 @@ $md-toolbar-button-color: white;
 // Icon colors
 $icon-color: black;
 $dark-icon-color: black;
+$bright-icon-color: $dark-gray;
 $icon-medium-dark-color: $dark-gray;
 // Message bubble colors
 $message-quote-color: $threema-green;

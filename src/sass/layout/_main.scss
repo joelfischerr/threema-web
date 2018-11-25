@@ -65,13 +65,13 @@
         height: 100%;
         &>div.ng-scope {
             height: 100%;
-            background-color: #efebe9;
+            background-color: $text-bright-background-color;
             /**
                 Default style for the header in the detail
              */
             .detail-header {
                 box-shadow: 1px 2px 4px -2px rgba(0, 0, 0, 0.2);
-                // background-color: $conversation-header-color;
+                background-color: $conversation-header-color;
                 color: $text-bright-background-color;
                 display: flex;
                 flex-direction: row;
@@ -102,14 +102,18 @@
                 .header-buttons {
                     flex: 1;
                     text-align: right;
+                    color: green;
                     /* loading indicator */
                     md-progress-circular {
                         display: inline-block;
                     }
+                    .material-icons {
+                        color: $material-grey-color;
+                    }
                 }
             }
             .detail-content {
-                background-color: $background-very-light-color;
+                // background-color: $background-very-light-color;
                 color: $text-bright-background-color;
                 ul {
                     list-style-type: none;
@@ -122,11 +126,11 @@
                 }
             }
             md-card md-card-content {
-                background-color: $background-light-color;
+                background-color: $background-very-light-color;
                 color: $text-bright-background-color;
             }
             md-card-title {
-                background-color: $background-light-color;
+                background-color: $background-very-light-color;
                 color: $text-bright-background-color;
             } // editable or readonly detail content
             >.form {
@@ -138,7 +142,7 @@
                         overflow: hidden;
                         height: 400px;
                         eee-avatar {
-                            background-color: $background-light-color;
+                            background-color: $background-very-light-color;
                             img {
                                 position: relative;
                                 top: calc(-100%);
@@ -154,7 +158,7 @@
                 .detail-content {
                     flex-grow: 1;
                     overflow: auto;
-                    background-color: $background-very-light-color;
+                    background-color: #efebe9;
                     .two-row {
                         display: flex;
                         flex-flow: row;
@@ -171,7 +175,7 @@
                                 width: 50%;
                                 overflow: hidden;
                                 position: relative;
-                                background-color: $background-very-light-color;
+                                background-color: #efebe9;
                                 &:before {
                                     content: "";
                                     display: block;
