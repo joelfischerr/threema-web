@@ -6,6 +6,7 @@
 $wallpaper: "../img/wallpaper_light.png?";
 $threema-green: rgb(0, 150, 136);
 $dark-gray: rgb(83, 83, 83);
+$middle-gray: rgb(112, 112, 112);
 $light-gray: rgb(235, 235, 235);
 // Status colors
 $status-ok-color: #4caf50;
@@ -23,7 +24,7 @@ $background-welcome-light-color: white !default;
 $background-very-light-color: white !default;
 $background-topheader-offset-color: #424242;
 $conversation-header-color: #f5f5f5;
-$latest-message-text-color: rgba(0,0,0,0.54);
+$latest-message-text-color: $middle-gray;
 // Material colors
 $material-grey-color: rgba(0, 0, 0, 0.54) !default;
 $material-grey-inactive-color: rgba(0, 0, 0, 0.26) !default;

@@ -218,7 +218,6 @@
                         flex-direction: row;
                         justify-content: space-between;
                         align-items: center;
-                        color: $latest-message-text-color;
 
                         .left {
                             // $background-light-color-space: nowrap;
@@ -239,7 +238,7 @@
                         }
 
                         .message-name, .message-text {
-                            color: $text-bright-background-color;
+                            color: $latest-message-text-color;
                             line-height: 1.7em;
                         }
 
@@ -252,6 +251,7 @@
                             white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
+                            color: $latest-message-text-color;
                         }
 
                         &.is-hidden {
@@ -290,7 +290,7 @@
                         }
 
                         .message-date {
-                            color: $text-bright-background-color;
+                            color: $latest-message-text-color;
                         }
                     }
                 }
