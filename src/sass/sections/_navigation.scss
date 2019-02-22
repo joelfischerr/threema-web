@@ -1,5 +1,5 @@
 // Separator for navigation items
-@mixin nav-item-separator() {
+@mixin nav-item-separator {
     border-bottom: 1px solid $border-grey;
 }
 
@@ -14,21 +14,28 @@
     z-index: 21;
     align-items: center;
     justify-content: center;
+    z-index: 21;
+    box-shadow: -2px 2px 4px -2px rgba(0, 0, 0, .8);
+    background-color: #424242;
+    padding: 0 $main-padding 0 (2 * $main-padding);
+    min-height: 68px;
+    color: #ffffff;
 
     .my-identity {
-        width: 85%;
         flex-grow: 1;
+        width: 85%;
+
         span {
-            max-width: 100%;
             display: inline-block;
-            text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.25);
-            font-size: 16pt;
-            white-space: nowrap;
+            cursor: pointer;
+            max-width: 100%;
             overflow: hidden;
+            text-shadow: .5px .5px 1px rgba(0, 0, 0, .25);
             text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 16pt;
             word-wrap: break-word;
             word-break: break-all;
-            @include mouse-hand;
         }
     }
 }
@@ -40,12 +47,12 @@
     .main {
         display: flex;
         flex-direction: row;
-        justify-content: flex-start;
         align-items: center;
+        justify-content: flex-start;
 
-        .md-nav-item{
+        .md-nav-item {
             :first-of-type {
-                margin-left: 0px;
+                margin-left: 0;
             }
         }
 
@@ -80,21 +87,23 @@
         visibility 0s linear $duration-height;
 
         &.visible {
-            padding: $main-padding;
-            max-height: 50px;
-            opacity: 1;
-            visibility: visible;
-
-            // Animation when appearing
             transition: visibility 0s,
             max-height $duration-height ease-in,
             opacity $duration-opacity linear $duration-height;
+            visibility: visible;
+            opacity: 1;
+            padding: $main-padding;
+
+            // Animation when appearing
+            max-height: 50px;
         }
     }
 }
 
 #navigation-conversations,
 #navigation-contacts {
+    @include scrollbar;
+
     .empty {
         color: $material-grey-color;
         margin-top: 1em;
@@ -102,12 +111,13 @@
         font-size: 1.2em;
         font-weight: 300;
     }
-
 }
 
 #navigation-conversations {
     $border-width: 4px;
     $border-count: 2;
+    flex: 1;
+    background-color: #ffffff;
     overflow-y: auto;
     // background-color: $conversation-background-color;
     flex: 1;
@@ -116,6 +126,7 @@
     }
 
     .conversation-wrapper {
+        @include nav-item-separator;
         display: block;
         @include nav-item-separator;
         background-color: $conversation-background-color;
@@ -124,9 +135,9 @@
             display: flex;
             flex-direction: row;
             align-items: center;
+            border-left: $border-width * $border-count solid #ffffff;
             padding: (1.5 * $main-padding) $main-padding - ($border-width * ($border-count - 1));
-            border-left: $border-width * $border-count solid $background-very-light-color;
-            background-color: $background-very-light-color;
+            border-left: $border-width * $border-count solid white;
 
             &.active, &:hover {
                 background-color: $conversation-background-highlight-color;
@@ -139,43 +150,70 @@
 
             // Only unread
             &.unread {
-                border-image: linear-gradient(to right, $status-error-color, $status-error-color 50%, $background-very-light-color 50%, $background-very-light-color 100%) 1 100%;
+                border-image: linear-gradient(
+                    to right,
+                    $status-error,
+                    $status-error 50%,
+                    #ffffff 50%,
+                    #ffffff 100%
+                ) 1 100%;
+
                 &.active {
-                    border-image: linear-gradient(to right, $status-error-color, $status-error-color 50%, $conversation-background-highlight-color 50%, $conversation-background-highlight-color 100%) 1 100%;
-                }
-                &:hover {
-                    border-image: linear-gradient(to right, $status-error-color, $status-error-color 50%, $conversation-background-highlight-color 50%, $conversation-background-highlight-color 100%) 1 100%;
+                    border-image: linear-gradient(
+                        to right,
+                        $status-error,
+                        $status-error 50%,
+                        $dark-background-color 50%,
+                        $dark-background-color 100%
+                    ) 1 100%;
                 }
             }
 
             // Only starred
             &.starred {
-                border-image: linear-gradient(to right, $status-starred-color, $status-starred-color 50%, $background-very-light-color 50%, $background-very-light-color 100%) 1 100%;
+                border-image: linear-gradient(
+                    to right,
+                    $status-starred,
+                    $status-starred 50%,
+                    #ffffff 50%,
+                    #ffffff 100%
+                ) 1 100%;
+
                 &.active {
-                    border-image: linear-gradient(to right, $status-starred-color, $status-starred-color 50%, $conversation-background-highlight-color 50%, $conversation-background-highlight-color 100%) 1 100%;
-                }
-                &:hover {
-                    border-image: linear-gradient(to right, $status-starred-color, $status-starred-color 50%, $conversation-background-highlight-color 50%, $conversation-background-highlight-color 100%) 1 100%;
+                    border-image: linear-gradient(
+                        to right,
+                        $status-starred,
+                        $status-starred 50%,
+                        $dark-background-color 50%,
+                        $dark-background-color 100%
+                    ) 1 100%;
                 }
             }
 
             // Both starred and unread
             &.starred.unread {
-                border-image: linear-gradient(to right, $status-error-color, $status-error-color 50%, $status-starred-color 50%, $status-starred-color 100%) 1 100%;
+                border-image: linear-gradient(
+                    to right,
+                    $status-error,
+                    $status-error 50%,
+                    $status-starred 50%,
+                    $status-starred 100%
+                ) 1 100%;
             }
 
             .avatar-box {
-                margin-right: 8px;
                 position: relative;
+                margin-right: 8px;
+
                 .loading {
                     position: absolute;
                 }
             }
 
             .conversation-box {
-                flex-grow: 1;
                 display: flex;
                 flex-direction: column;
+                flex-grow: 1;
                 overflow: hidden;
 
                 .receiver-box,
@@ -186,22 +224,25 @@
                 }
 
                 .receiver-box {
-                    flex-grow: 1;
                     display: flex;
                     flex-direction: row;
+                    flex-grow: 1;
                     justify-content: space-between;
+                    color: #000000;
                     font-weight: bold;
                     color: $text-bright-background-color;
                     .title {
                         flex: 1;
-                        white-space: nowrap;
+                        margin-right: $main-padding;
                         overflow: hidden;
                         text-overflow: ellipsis;
-                        margin-right: $main-padding;
+                        white-space: nowrap;
                     }
+
                     .disabled {
                         text-decoration: line-through;
                     }
+
                     .notification-settings {
                         margin: 1px 0 0 4px;
                         padding: 0;
@@ -216,24 +257,25 @@
                     .latest-message {
                         display: flex;
                         flex-direction: row;
-                        justify-content: space-between;
                         align-items: center;
+                        justify-content: space-between;
+                        color: $material-grey;
 
                         .left {
-                            // $background-light-color-space: nowrap;
+                            display: flex;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                            display: flex;
+                            white-space: nowrap;
 
                         }
 
                         .right {
                             flex-shrink: 0;
-                            text-align: right;
                             margin-left: 24px;
+                            text-align: right;
 
                             .draft {
-                                color: #C62828;
+                                color: #c62828;
                             }
                         }
 
@@ -242,16 +284,17 @@
                             line-height: 1.7em;
                         }
 
-                        .message-name:after {
-                            content: ':';
-                            margin-right: 4px;
+                        .message-name {
+                            &::after {
+                                margin-right: 4px;
+                                content: ':';
+                            }
                         }
 
                         .message-text {
-                            white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                            color: $latest-message-text-color;
+                            white-space: nowrap;
                         }
 
                         &.is-hidden {
@@ -277,6 +320,7 @@
                                 display: none;
                             }
                         }
+
                         &:not(.show-draft) {
                             .draft {
                                 display: none;
@@ -297,7 +341,7 @@
             }
 
             .badge.unread-count {
-                background-color: $status-error-color;
+                background-color: $status-error;
                 border-radius: 5px;
                 color: $text-in-unread-count-offset-color;
                 font-size: 0.9em;
@@ -309,14 +353,16 @@
 }
 
 #navigation-contacts {
-    overflow-y: scroll;
     flex: 1;
+    overflow-y: scroll;
 
     .contact {
+        @include nav-item-separator;
         display: flex;
         flex-direction: row;
-        justify-content: flex-start;
         align-items: center;
+        justify-content: flex-start;
+        border-left: 4px solid #ffffff;
         padding: 12px 8px;
         border-left: 4px solid $background-very-light-color;
         background-color: $background-very-light-color;
@@ -330,9 +376,9 @@
         }
 
         .left {
-            flex-grow: 1;
             display: flex;
             flex-direction: column;
+            flex-grow: 1;
         }
 
         .right {
@@ -356,13 +402,14 @@
         }
     }
 
-    .contact:hover {
-        @include mouse-hand;
-        background-color: $background-dark-color;
+        &:hover {
+            background-color: $background-dark-color;
+            cursor: pointer;
+        }
     }
 
     .contact.inactive {
-        opacity: 0.5;
+        opacity: .5;
     }
 
     .hide-inactive .contact.inactive {
@@ -378,12 +425,14 @@
     }
 
     .fab-button-add-contact {
-        background-color: #D32F2F;
+        background-color: #d32f2f;
     }
+
     .fab-button-add-group {
-        background-color: #FF9800;
+        background-color: #ff9800;
     }
+
     .fab-button-add-distribution-list {
-        background-color: #3F51B5;
+        background-color: #3f51b5;
     }
 }

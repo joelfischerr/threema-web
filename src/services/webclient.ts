@@ -26,7 +26,10 @@ import {
     arraysAreEqual, copyDeep, hasFeature, hasValue, hexToU8a,
     msgpackVisualizer, randomString, stringToUtf8a, u8aToHex,
 } from '../helpers';
-import {isContactReceiver, isDistributionListReceiver, isGroupReceiver, isValidReceiverType} from '../typeguards';
+import {
+    isContactReceiver, isDistributionListReceiver,
+    isGroupReceiver, isValidReceiverType,
+} from '../typeguards';
 import {BatteryStatusService} from './battery';
 import {BrowserService} from './browser';
 import {TrustedKeyStoreService} from './keystore';
@@ -176,7 +179,7 @@ export class WebClientService {
     private receiverService: ReceiverService;
     private themeService: ThemeService;
     private timeoutService: TimeoutService;
-    private titleService: TitleService;
+    private titleService: TitleService; // Don't remove, needs to be initialized to handle events
     private versionService: VersionService;
 
     // State handling
@@ -694,7 +697,7 @@ export class WebClientService {
      */
     private logOnReject(type: string, subType: string) {
         return ((error) => {
-            this.$log.error(this.logTag, `Message ${type}/${subType} has been rejected: ${error}`);
+            this.$log.error(this.logTag, `Message ${type}/${subType} has been rejected by the remote: ${error}`);
         });
     }
 
@@ -900,6 +903,14 @@ export class WebClientService {
                 this.startupPromise = null;
                 this.startupDone = true;
                 this._resetInitializationSteps();
+
+                // Hack for #712
+                // TODO: Remove once we have the ack protocol for Android, too
+                if (this.chosenTask !== threema.ChosenTask.RelayedData && this.$state.includes('messenger')) {
+                    this.$state.reload().catch((error) => {
+                        this.$log.error('Unable to reload state:', error);
+                    });
+                }
             });
         }
 
@@ -1218,7 +1229,8 @@ export class WebClientService {
             // There's at least one TURN server with TCP transport in the list
             for (const server of this.config.ICE_SERVERS) {
                 // Remove TLS entries
-                server.urls = server.urls.filter((url) => !url.startsWith('turns:'));
+                const urls = Array.isArray(server.urls) ? server.urls : [server.urls];
+                server.urls = urls.filter((url) => !url.startsWith('turns:'));
             }
         } else {
             this.$log.debug(this.logTag, 'No fallback TURN TCP server present, keeping TURNS server');
@@ -1237,7 +1249,8 @@ export class WebClientService {
         if (allUrls.some((url) => url.includes('ds-turn.threema.ch'))) {
             for (const server of this.config.ICE_SERVERS) {
                 // Replace dual stack entries
-                server.urls = server.urls.map((url) => {
+                const urls = Array.isArray(server.urls) ? server.urls : [server.urls];
+                server.urls = urls.map((url) => {
                     return url.replace('ds-turn.threema.ch', 'turn.threema.ch');
                 });
             }
@@ -1609,8 +1622,7 @@ export class WebClientService {
                             if (this.mimeService.isAudio(mime)) {
                                 requiredFeature = ContactReceiverFeature.AUDIO;
                                 invalidFeatureMessage = 'error.AUDIO_MESSAGES_NOT_SUPPORTED';
-                            } else if (this.mimeService.isImage(mime)
-                                || this.mimeService.isVideo(mime)) {
+                            } else if (this.mimeService.isImage(mime) || this.mimeService.isVideo(mime)) {
                                 requiredFeature = ContactReceiverFeature.AUDIO;
                                 invalidFeatureMessage = 'error.MESSAGE_NOT_SUPPORTED';
                             }
@@ -1621,8 +1633,9 @@ export class WebClientService {
                         // check receiver
                         switch (receiver.type) {
                             case 'distributionList':
-                                return reject(this.$translate.instant(invalidFeatureMessage, {
-                                    receiverName: receiver.displayName}));
+                                return reject(this.$translate.instant(
+                                    invalidFeatureMessage, {receiverName: receiver.displayName},
+                                ));
                             case 'group':
                                 const unsupportedMembers = [];
                                 const group = this.groups.get(receiver.id);
@@ -1634,16 +1647,23 @@ export class WebClientService {
                                     if (identity !== this.me.id) {
                                         // tslint:disable-next-line: no-shadowed-variable
                                         const contact = this.contacts.get(identity);
-                                        if (contact === undefined
-                                            || !hasFeature(contact, requiredFeature, this.$log)) {
+                                        if (contact === undefined) {
+                                            // This shouldn't actually happen. But if it happens, log an error
+                                            // and assume image support. It's much more likely that the contact
+                                            // can receive images (feature flag 0x01) than otherwise. And if one
+                                            // of the contacts really cannot receive images, the app will return
+                                            // an error message.
+                                            this.$log.error(`Cannot retrieve contact ${identity}`);
+                                        } else if (!hasFeature(contact, requiredFeature, this.$log)) {
                                             unsupportedMembers.push(contact.displayName);
                                         }
                                     }
                                 });
 
                                 if (unsupportedMembers.length > 0) {
-                                    return reject(this.$translate.instant(invalidFeatureMessage, {
-                                        receiverName: unsupportedMembers.join(',')}));
+                                    return reject(this.$translate.instant(
+                                        invalidFeatureMessage, {receiverName: unsupportedMembers.join(',')},
+                                    ));
                                 }
                                 break;
                             case 'contact':
@@ -2115,7 +2135,6 @@ export class WebClientService {
         this.typingInstance = this.container.createTyping();
 
         // Add converters (pre-processors)
-        this.messages.converter = this.container.Converter.unicodeToEmoji;
         this.conversations.setConverter(this.container.Converter.addReceiverToConversation(this.receivers));
 
         // Add filters
@@ -2943,11 +2962,11 @@ export class WebClientService {
             return;
         }
 
-        // Set low-res avatar
-        receiver.avatar.low = data;
-
-        // Invalidate high-res avatar
-        receiver.avatar.high = undefined;
+        // Set (or clear) low-res avatar, invalidate high-res avatar
+        receiver.avatar = {
+            low: hasValue(data) ? data : undefined,
+            high: undefined,
+        };
     }
 
     /**
@@ -3966,14 +3985,14 @@ export class WebClientService {
         const totalUnreadCount = this.conversations
             .get()
             .reduce((a: number, b: threema.Conversation) => a + b.unreadCount, 0);
-        this.titleService.updateUnreadCount(totalUnreadCount);
+        this.stateService.unreadCount = totalUnreadCount;
     }
 
     /**
      * Reset the unread count in the window title
      */
     private resetUnreadCount(): void {
-        this.titleService.updateUnreadCount(0);
+        this.stateService.unreadCount = 0;
     }
 
     /**

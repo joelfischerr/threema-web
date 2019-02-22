@@ -25,6 +25,7 @@ import {
 
 import {ContactControllerModel} from '../controller_model/contact';
 import {bufferToUrl, filter, hasValue, logAdapter, supportsPassive, throttle, u8aToHex} from '../helpers';
+import {emojify} from '../helpers/emoji';
 import {ContactService} from '../services/contact';
 import {ControllerService} from '../services/controller';
 import {ControllerModelService} from '../services/controller_model';
@@ -251,7 +252,7 @@ class ConversationController {
 
     // The conversation receiver
     public receiver: threema.Receiver;
-    public conversation: threema.Conversation;
+    public _conversation: threema.Conversation;  // Access through getter
     public type: threema.ReceiverType;
 
     // The conversation messages
@@ -364,7 +365,7 @@ class ConversationController {
         // Set receiver, conversation and type
         try {
             this.receiver = webClientService.receivers.getData({type: $stateParams.type, id: $stateParams.id});
-            this.conversation = this.webClientService.conversations.find(this.receiver);
+            this._conversation = this.webClientService.conversations.find(this.receiver);
             this.type = $stateParams.type;
 
             if (this.receiver.type === undefined) {
@@ -490,9 +491,18 @@ class ConversationController {
             return this.receiver.locked;
         }, () => {
             if (this.locked !== this.receiver.locked) {
-                $state.reload();
+                $state.reload().catch((error) => {
+                    this.$log.error('Unable to reload state:', error);
+                });
             }
         });
+    }
+
+    public get conversation(): threema.Conversation {
+        if (!hasValue(this._conversation)) {
+            this._conversation = this.webClientService.conversations.find(this.receiver);
+        }
+        return this._conversation;
     }
 
     public isEnabled(): boolean {
@@ -539,7 +549,10 @@ class ConversationController {
     public submit = (type: threema.MessageContentType, contents: threema.MessageData[]): Promise<any> => {
         // Validate whether a connection is available
         return new Promise((resolve, reject) => {
-            if (!this.stateService.readyToSubmit(this.webClientService.chosenTask)) {
+            if (!this.stateService.readyToSubmit(
+                this.webClientService.chosenTask,
+                this.webClientService.startupDone,
+            )) {
                 // Invalid connection, show toast and abort
                 this.showError(this.$translate.instant('error.NO_CONNECTION'));
                 return reject();
@@ -584,8 +597,9 @@ class ConversationController {
 
                     // Eager translations
                     const title = this.$translate.instant('messenger.CONFIRM_FILE_SEND', {
-                        senderName: (this.$filter('emojify') as any)
-                            ((this.$filter('emptyToPlaceholder') as any)(this.receiver.displayName, '-')),
+                        senderName: emojify(
+                            (this.$filter('emptyToPlaceholder') as any)(this.receiver.displayName, '-'),
+                        ),
                     });
                     const placeholder = this.$translate.instant('messenger.CONFIRM_FILE_CAPTION');
                     const confirmSendAsFile = this.$translate.instant('messenger.CONFIRM_SEND_AS_FILE');
@@ -890,6 +904,10 @@ class ConversationController {
      * Mark the current conversation as pinned.
      */
     public pinConversation(): void {
+        if (!hasValue(this.conversation)) {
+            this.$log.warn(this.logTag, 'Cannot pin, no conversation exists');
+            return;
+        }
         this.webClientService
             .modifyConversation(this.conversation, true)
             .then(() => this.showMessage('messenger.PINNED_CONVERSATION_OK'))
@@ -903,6 +921,10 @@ class ConversationController {
      * Mark the current conversation as not pinned.
      */
     public unpinConversation(): void {
+        if (!hasValue(this.conversation)) {
+            this.$log.warn(this.logTag, 'Cannot unpin, no conversation exists');
+            return;
+        }
         this.webClientService
             .modifyConversation(this.conversation, false)
             .then(() => this.showMessage('messenger.UNPINNED_CONVERSATION_OK'))
@@ -1229,6 +1251,7 @@ class MessengerController {
             }
         }, true);
 
+        const logTag = this.logTag;
         this.webClientService.setReceiverListener({
             onConversationRemoved(receiver: threema.Receiver) {
                 switch ($state.current.name) {
@@ -1246,7 +1269,7 @@ class MessengerController {
                         }
                         break;
                     default:
-                        $log.debug(this.logTag, 'Ignored onRemoved event for state', $state.current.name);
+                        $log.debug(logTag, 'Ignored onRemoved event for state', $state.current.name);
                 }
             },
         });

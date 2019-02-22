@@ -1,67 +1,35 @@
-// $threema-green: rgb(0, 150, 136);
-// // Status colors
-// $status-ok-color: #4caf50;
-// $status-warning-color: #ff9800;
-// $status-error-color: #f44336;
-// $status-starred-color: #ffc107;
-// // Border colors
-// $border-grey: rgb(99, 99, 99) !default;
-// $border-color: rgb(119, 119, 119);
-// // Background colors
-// // $background-grey-color: lighten($border-grey, 7%) !default;
-// $background-dark-color: rgb(27, 27, 27) !default;
-// $background-light-color: rgb(46, 46, 46) !default;
-// $background-welcome-light-color: white !default;
-// // $background-light-color: white !default;
-// $background-very-light-color: rgb(83, 83, 83) !default;
-// $background-topheader-offset-color: #424242;
-// // Material colors
-// $material-grey-color: rgba(0, 0, 0, 0.54) !default;
-// $material-grey-inactive-color: rgba(0, 0, 0, 0.26) !default;
-// $material-grey-dark-color: rgba(0, 0, 0, 0.87) !default;
-// $material-card-shadow-color: 0px 2px 5px 0px rgba(0, 0, 0, 0.16),
-// 0px 2px 5px 0px rgba(0, 0, 0, 0.23) !default;
-// // Text colors
-// $text-bright-background-color: rgb(206, 206, 206);
-// $text-bright-background-welcome-color: black;
-// $text-dark-background-color: rgb(165, 165, 165);
-// $text-protocol-updated-color: #9dd0f2;
-// $text-on-background-topheader-offset-color: white;
-// $text-in-unread-count-offset-color: white;
-// // Icon colors
-// $icon-color: white;
-// $dark-icon-color: gray;
-// $icon-medium-dark-color: gray;
-// // Message bubble colors
-// $message-quote-color: $threema-green;
-// $message-bubble-color-in: rgb(31, 25, 25) !default;
-// $message-bubble-color-out: rgb(27, 39, 52) !default;
-// // Misc colors
-// $url-light-blue-color: #63a6cf !default;
-// $active-placeholder-color: lightgray !default;
-// $work-blue-color: #3b84df;
-// // Button colors
-// $button-color: $material-grey-color;
-// $button-color-enabled: rgb(65, 65, 65) !default;
-// $button-color-disabled: rgba(65, 65, 65, 0.65) !default;
-// $button-color-pressed: rgb(55, 55, 55);
-// $button-text-color: rgb(255, 255, 255);
-// .color-status-ok {
-//     color: $status-ok-color;
-// }
+$status-ok: #4caf50;
+$status-warning: #ff9800;
+$status-error: #f44336;
+$status-starred: #ffc107;
+$border-grey: #dddddd;
+$background-grey: lighten($border-grey, 7%);
+$material-grey: rgba(0, 0, 0, 0.54);
+$material-grey-dark: rgba(0, 0, 0, 0.87);
+$url-light-blue: #63a6cf;
+$work-blue: #3b84df;
 
-// .color-status-warning {
-//     color: $status-warning-color;
-// }
+$dark-background-color: #f6f6f6;
+$light-background-color: #ffffff;
 
-// .color-status-error {
-//     color: $status-error-color;
-// }
+$scrollbar-color-bg: $dark-background-color;
+$scrollbar-color-thumb: #cccccc;
 
-// .material-icons.md-medium-dark {
-//     color: $material-grey-color;
-// }
+$material-card-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 5px 0 rgba(0, 0, 0, .23);
 
-// .material-icons.md-medium-dark.md-inactive {
-//     color: $material-grey-inactive-color;
-// }
+$active-placeholder-color: #d3d3d3;
+
+.color-status-ok {
+    color: $status-ok;
+}
+
+.color-status-warning {
+    color: $status-warning;
+}
+
+.color-status-error {
+    color: $status-error;
+}
+
+.material-icons.md-medium-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-medium-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }

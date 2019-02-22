@@ -16,12 +16,14 @@
         margin-bottom: 20px;
     }
 
-    &, input {
+    &,
+    input {
         text-align: center;
         color: $text-bright-background-welcome-color;
     }
 
     md-input-container {
+        margin-right: 32px;
         margin-left: 32px;
         margin-right: 32px;
         border-color: $threema-green;
@@ -50,15 +52,18 @@
         .ios-only-warning {
             display: flex;
             flex-direction: horizontal;
+            margin-bottom: 16px;
+            background-color: $status-warning;
             padding: 8px;
             background-color: $status-warning-color;
             margin-bottom: 16px;
             p {
-                font-size: 0.8em;
-                letter-spacing: -0.2px;
-                line-height: 1.4em;
                 text-align: left;
+                line-height: 1.4em;
+                letter-spacing: -.2px;
+                font-size: .8em;
             }
+
             img {
                 margin-right: 8px;
                 width: 32px;
@@ -102,6 +107,7 @@
 
         button {
             margin-top: 0;
+            margin-bottom: 32px;
             margin-left: 0;
             margin-bottom: 32px;
             color: $button-text-color;
@@ -116,8 +122,8 @@
         }
 
         ol {
-            width: 90%;
             margin: 16px auto 0;
+            width: 90%;
             list-style-position: inside;
 
             li {
@@ -148,28 +154,27 @@
         }
 
         .info {
-            height: 250px;
+            display: flex;
             position: relative;
             top: -250px;
-            display: flex;
             flex-direction: column;
             justify-content: center;
             color: $text-dark-background-color;
             .percentage {
-                font-size: 4em;
                 margin-bottom: 8px;
-                line-height: 1em;
-                font-weight: 300;
                 vertical-align: center;
+                line-height: 1em;
+                font-size: 4em;
+                font-weight: 300;
             }
         }
 
         .troubleshoot {
             $troubleshoot-height: 190px;
-            height: $troubleshoot-height;
-            width: 100%;
             position: absolute;
             bottom: -$troubleshoot-height - 32px;
+            width: 100%;
+            height: $troubleshoot-height;
 
             h3 {
                 margin-bottom: 8px;
@@ -178,14 +183,15 @@
             }
 
             ul {
+                font-size: .9em;
                 list-style-type: none;
                 color: $text-bright-background-welcome-color;
                 font-size: 0.9em;
             }
 
             li {
+                padding-bottom: .3em;
                 line-height: 1.2em;
-                padding-bottom: 0.3em;
             }
 
             .forget {
@@ -193,7 +199,7 @@
             }
 
             .reload-btn {
-                margin: 20px 10px 0px;
+                margin: 20px 10px 0;
                 padding: 0 10px;
                 height: 35px;
             }
@@ -202,6 +208,8 @@
 
     .notification {
         flex-direction: horizontal;
+        margin-bottom: 16px;
+        background-color: #ff9800;
         padding: 8px;
                 color: $text-bright-background-welcome-color;
         background-color: #ff9800;
@@ -210,6 +218,7 @@
             font-size: 0.8em;
                 color: $text-bright-background-welcome-color;
             line-height: 1.4em;
+            font-size: .8em;
             font-weight: bold;
             text-align: center;
             width: 100%;
