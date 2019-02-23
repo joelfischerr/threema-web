@@ -144,7 +144,6 @@
                 border-color: $conversation-background-highlight-color;
             }
             &:hover:not(.active) {
-                @include mouse-hand;
                 background-color: $conversation-background-highlight-color;
             }
 
@@ -400,7 +399,6 @@
             font-size: 0.8em;
             color: $text-bright-background-color;
         }
-    }
 
         &:hover {
             background-color: $background-dark-color;
