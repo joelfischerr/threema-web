@@ -25,7 +25,7 @@ $background-welcome-light-color: white !default;
 // $background-light-color: white !default;
 $background-very-light-color: $standard-gray !default;
 $background-topheader-offset-color: #424242;
-$conversation-header-color: $background-dark-color;
+$conversation-header-color: $background-topheader-offset-color;
 $conversation-background-color: $background-light-color;
 $conversation-background-highlight-color: $background-dark-color;
 // Material colors
