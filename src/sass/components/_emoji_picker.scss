@@ -64,8 +64,8 @@
 
         &:checked ~ label {
             z-index: 2;
-            background: $background-dark-color;
             border-bottom: 1px solid $background-light-color;
+            background: $background-dark-color;
         }
     }
 
@@ -74,8 +74,8 @@
     }
 
     ::-webkit-scrollbar {
-        background-color: $background-light-color;
         border: 1px solid $background-light-color;
+        background-color: $background-light-color;
     }
 
     ::-webkit-scrollbar-thumb {
