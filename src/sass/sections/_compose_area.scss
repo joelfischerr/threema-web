@@ -86,7 +86,7 @@ compose-area {
 
     // On dragover
     &.is-dragover div.compose {
-        border: 4px dashed $lightgrey;
+        border: 4px dashed $background-dark-color;
         text-align: center;
         line-height: $footer-height - 20px;
         font-size: 1.4em;

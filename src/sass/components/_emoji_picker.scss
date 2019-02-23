@@ -67,6 +67,7 @@
             background: $background-dark-color;
             border-bottom: 1px solid $background-light-color;
         }
+    }
 
     [type=radio]:checked ~ label ~ .content {
         z-index: 1;
