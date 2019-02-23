@@ -4,22 +4,16 @@
 }
 
 #navigation-topheader {
-    background-color: $background-topheader-offset-color;
-    padding: 0 $main-padding 0 (2*$main-padding);
-    min-height: 68px;
     display: flex;
     flex-direction: row;
-    color: $text-on-background-topheader-offset-color;
-    box-shadow: -2px 2px 4px -2px rgba(0,0,0,0.8);
-    z-index: 21;
     align-items: center;
     justify-content: center;
     z-index: 21;
     box-shadow: -2px 2px 4px -2px rgba(0, 0, 0, .8);
-    background-color: #424242;
+    background-color: $background-topheader-offset-color;
     padding: 0 $main-padding 0 (2 * $main-padding);
     min-height: 68px;
-    color: #ffffff;
+    color: $text-on-background-topheader-offset-color;
 
     .my-identity {
         flex-grow: 1;
@@ -41,9 +35,10 @@
 }
 
 #navigation-header {
-    background-color: $background-light-color;
-    box-shadow: -2px 2px 4px -2px rgba(0,0,0,0.4);
     z-index: 18;
+    box-shadow: -2px 2px 4px -2px rgba(0, 0, 0, .4);
+    background-color: $background-light-color;
+
     .main {
         display: flex;
         flex-direction: row;
@@ -62,29 +57,35 @@
     }
 
     .search {
-        input[type="text"] {
-            border: 1px solid $text-bright-background-color;
-            border-radius: $material-radius;
-            padding: $main-padding;
-            box-sizing: border-box;
-            width: 100%;
-            margin: 0;
-            background-color: $background-light-color;
-            .md-errors-spacer {
-                display: none;
-            }
-        }
 
-        $duration-opacity: 0.1s;
-        $duration-height: 0.2s;
-        max-height: 0;
-        opacity: 0;
-        visibility: hidden;
+        $duration-opacity: .1s;
+        $duration-height: .2s;
+
 
         // Animation when disappearing
         transition: opacity $duration-opacity linear,
         max-height $duration-height ease-out $duration-opacity,
         visibility 0s linear $duration-height;
+
+        visibility: hidden;
+        opacity: 0;
+        max-height: 0;
+
+        input {
+            &[type='text'] {
+                margin: 0;
+                border: 1px solid $text-bright-background-color;
+                border-radius: $material-radius;
+                background-color: $background-light-color;
+                padding: $main-padding;
+                width: 100%;
+                box-sizing: border-box;
+
+                .md-errors-spacer {
+                    display: none;
+                }
+            }
+        }
 
         &.visible {
             transition: visibility 0s,
@@ -105,9 +106,9 @@
     @include scrollbar;
 
     .empty {
-        color: $material-grey-color;
         margin-top: 1em;
         margin-left: 16px;
+        color: $material-grey-color;
         font-size: 1.2em;
         font-weight: 300;
     }
@@ -117,10 +118,8 @@
     $border-width: 4px;
     $border-count: 2;
     flex: 1;
-    background-color: #ffffff;
     overflow-y: auto;
-    // background-color: $conversation-background-color;
-    flex: 1;
+
     .loading-element {
         margin-top: 50px;
     }
@@ -128,23 +127,27 @@
     .conversation-wrapper {
         @include nav-item-separator;
         display: block;
-        @include nav-item-separator;
         background-color: $conversation-background-color;
 
         .conversation {
             display: flex;
             flex-direction: row;
             align-items: center;
-            border-left: $border-width * $border-count solid #ffffff;
+            border-left: $border-width * $border-count solid $conversation-background-color;
             padding: (1.5 * $main-padding) $main-padding - ($border-width * ($border-count - 1));
-            border-left: $border-width * $border-count solid white;
 
-            &.active, &:hover {
-                background-color: $conversation-background-highlight-color;
-                border-color: $conversation-background-highlight-color;
+            &.active {
+                &:hover {
+                    border-color: $conversation-background-highlight-color;
+                    background-color: $conversation-background-highlight-color;
+                }
             }
-            &:hover:not(.active) {
-                background-color: $conversation-background-highlight-color;
+
+            &:hover {
+                &:not(.active) {
+                    border-color: $conversation-background-highlight-color;
+                    background-color: $conversation-background-highlight-color;
+                }
             }
 
             // Only unread
@@ -153,8 +156,8 @@
                     to right,
                     $status-error,
                     $status-error 50%,
-                    #ffffff 50%,
-                    #ffffff 100%
+                    $conversation-background-color 50%,
+                    $conversation-background-color 100%
                 ) 1 100%;
 
                 &.active {
@@ -166,6 +169,16 @@
                         $dark-background-color 100%
                     ) 1 100%;
                 }
+
+                &:hover {
+                    border-image: linear-gradient(
+                        to right,
+                        $status-error,
+                        $status-error 50%,
+                        $conversation-background-highlight-color 50%,
+                        $conversation-background-highlight-color 100%
+                    ) 1 100%;
+                }
             }
 
             // Only starred
@@ -174,8 +187,8 @@
                     to right,
                     $status-starred,
                     $status-starred 50%,
-                    #ffffff 50%,
-                    #ffffff 100%
+                    $conversation-background-color 50%,
+                    $conversation-background-color 100%
                 ) 1 100%;
 
                 &.active {
@@ -185,6 +198,16 @@
                         $status-starred 50%,
                         $dark-background-color 50%,
                         $dark-background-color 100%
+                    ) 1 100%;
+                }
+
+                &:hover {
+                    border-image: linear-gradient(
+                        to right,
+                        $status-starred,
+                        $status-starred 50%,
+                        $conversation-background-highlight-color 50%,
+                        $conversation-background-highlight-color 100%
                     ) 1 100%;
                 }
             }
@@ -227,9 +250,9 @@
                     flex-direction: row;
                     flex-grow: 1;
                     justify-content: space-between;
-                    color: #000000;
-                    font-weight: bold;
                     color: $text-bright-background-color;
+                    font-weight: bold;
+
                     .title {
                         flex: 1;
                         margin-right: $main-padding;
@@ -258,7 +281,7 @@
                         flex-direction: row;
                         align-items: center;
                         justify-content: space-between;
-                        color: $material-grey;
+                        color: $latest-message-text-color;
 
                         .left {
                             display: flex;
@@ -278,12 +301,11 @@
                             }
                         }
 
-                        .message-name, .message-text {
-                            color: $latest-message-text-color;
-                            line-height: 1.7em;
-                        }
-
                         .message-name {
+                            .message-text {
+                                line-height: 1.7em;
+                            }
+
                             &::after {
                                 margin-right: 4px;
                                 content: ':';
@@ -340,12 +362,12 @@
             }
 
             .badge.unread-count {
-                background-color: $status-error;
-                border-radius: 5px;
-                color: $text-in-unread-count-offset-color;
-                font-size: 0.9em;
-                padding: 0 5px;
                 margin-left: 4px;
+                border-radius: 5px;
+                background-color: $status-error;
+                padding: 0 5px;
+                color: $text-in-unread-count-offset-color;
+                font-size: .9em;
             }
         }
     }
@@ -353,21 +375,20 @@
 
 #navigation-contacts {
     flex: 1;
+    background-color: $conversation-background-color;
     overflow-y: scroll;
 
     .contact {
         @include nav-item-separator;
+        @include nav-item-separator;
+
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
-        border-left: 4px solid #ffffff;
-        padding: 12px 8px;
         border-left: 4px solid $background-very-light-color;
-        background-color: $background-very-light-color;
-        
-
-        @include nav-item-separator;
+        // background-color: $background-very-light-color;
+        padding: 12px 8px;
 
         .avatar-box {
             padding-right: 8px;
@@ -387,8 +408,8 @@
         }
 
         .name {
-            font-weight: bold;
             color: $text-bright-background-color;
+            font-weight: bold;
         }
 
         .identity {
@@ -396,13 +417,22 @@
         }
 
         .nickname {
-            font-size: 0.8em;
             color: $text-bright-background-color;
+            font-size: .8em;
         }
 
         &:hover {
             background-color: $background-dark-color;
             cursor: pointer;
+
+            &.active {
+                border-color: $conversation-background-highlight-color;
+                background-color: $conversation-background-highlight-color;
+            }
+
+            &:not(.active) {
+                background-color: $conversation-background-highlight-color;
+            }
         }
     }
 
