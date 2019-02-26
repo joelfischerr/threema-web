@@ -142,14 +142,14 @@
 
     .loading {
         margin-top: 48px;
-        color: $text-dark-background-color;
+        color: black;
 
         md-progress-circular {
             margin: 0 auto;
-            color: $text-dark-background-color;
+            color: black;
             svg path {
                 stroke-width: 12px !important;
-                color: $text-dark-background-color
+                color: black;
             }
         }
 
@@ -159,7 +159,6 @@
             top: -250px;
             flex-direction: column;
             justify-content: center;
-            color: $text-dark-background-color;
             .percentage {
                 margin-bottom: 8px;
                 vertical-align: center;
