@@ -242,7 +242,7 @@
     &.show-detail {
         #navigation {
             flex: 1 6 30%;
-            border-right: 1px solid #dddddd;
+            border-right: 1px solid $border-dark-grey;
             min-width: 200px;
             max-width: 30%;
         }
