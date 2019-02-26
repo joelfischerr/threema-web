@@ -13,10 +13,12 @@ $standard-gray: rgb(83, 83, 83);
 $status-ok-color: #4caf50;
 $status-warning-color: #ff9800;
 $status-error-color: #f44336;
+$status-error-disabled-color: #f44336a1;
 $status-starred-color: #ffc107;
 // Border colors
-$border-grey: rgb(99, 99, 99) !default;
-$border-color: rgb(119, 119, 119);
+$border-grey: rgb(51, 51, 51) !default;
+$border-dark-grey: rgb(77, 77, 77) !default;
+$border-color: rgb(82, 82, 82);
 // Background colors
 // $background-grey-color: lighten($border-grey, 7%) !default;
 $background-dark-color: $almost-black !default;
@@ -30,10 +32,10 @@ $conversation-background-color: $background-light-color;
 $conversation-background-highlight-color: $background-dark-color;
 // Material colors
 $material-grey-color: rgba(0, 0, 0, 0.54) !default;
-$material-grey-inactive-color: rgba(0, 0, 0, 0.26) !default;
-$material-grey-dark-color: rgba(0, 0, 0, 0.87) !default;
-$material-card-shadow-color: 0px 2px 5px 0px rgba(0, 0, 0, 0.16),
-0px 2px 5px 0px rgba(0, 0, 0, 0.23) !default;
+$material-grey-inactive-color: rgba(0, 0, 0, .26) !default;
+$material-grey-dark-color: rgba(0, 0, 0, .87) !default;
+$material-card-shadow-color: px 2px 5px px rgba(0, 0, 0, 0.16),
+px 2px 5px px rgba(0, 0, 0, .23) !default;
 // Text colors
 $text-bright-background-color: rgb(206, 206, 206);
 $text-bright-background-welcome-color: black;
@@ -58,14 +60,17 @@ $message-bubble-color-in: rgb(31, 25, 25) !default;
 $message-bubble-color-out: rgb(27, 39, 52) !default;
 // Misc colors
 $url-light-blue-color: #63a6cf !default;
-$active-placeholder-color: lightgray !default;
+$active-placeholder-color: $text-dark-background-color !default;
 $work-blue-color: #3b84df;
 // Button colors
 $button-color: $material-grey-color;
-$button-color-enabled: rgb(65, 65, 65) !default;
-$button-color-disabled: rgba(65, 65, 65, 0.65) !default;
-$button-color-pressed: rgb(55, 55, 55);
+$button-color-enabled: rgb(117, 116, 116) !default;
+$button-color-disabled: rgba(80, 80, 80, 0.65) !default;
+$button-color-pressed: rgb(85, 84, 84);
 $button-text-color: rgb(255, 255, 255);
+$button-text-dark-color: rgb(255, 255, 255);
+$button-text-light-color: rgb(0, 0, 0);
+
 .color-status-ok {
     color: $status-ok-color;
 }
@@ -85,8 +90,6 @@ $button-text-color: rgb(255, 255, 255);
 .material-icons.md-medium-dark.md-inactive {
     color: $material-grey-inactive-color;
 }
-
-
 
 
 // //-------------------------------

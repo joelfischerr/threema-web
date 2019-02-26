@@ -12,9 +12,11 @@ $light-gray: rgb(235, 235, 235);
 $status-ok-color: #4caf50;
 $status-warning-color: #ff9800;
 $status-error-color: #f44336;
+$status-error-disabled-color: #f44336a1;
 $status-starred-color: #ffc107;
 // Border colors
 $border-grey: rgba(148, 148, 148, 0.5) !default;
+$border-dark-grey: rgba(148, 148, 148, 0.5) !default;
 $border-color: rgb(119, 119, 119);
 // Background colors
 // $background-grey-color: lighten($border-grey, 7%) !default;
@@ -60,10 +62,13 @@ $active-placeholder-color: lightgray !default;
 $work-blue-color: #3b84df;
 // Button colors
 $button-color: $material-grey-color;
-$button-color-enabled: rgb(65, 65, 65);
-$button-color-disabled: rgba(65, 65, 65, 0.65);
-$button-color-pressed: rgb(55, 55, 55);
-$button-text-color: rgb(255, 255, 255);
+$button-color-enabled: rgb(250, 250, 250);
+$button-color-disabled: rgba(255, 254, 254, .65);
+$button-color-pressed: rgb(155, 155, 155);
+$button-text-color: rgb(0, 0, 0);
+$button-text-dark-color: rgb(0, 0, 0);
+$button-text-light-color: rgb(255, 255, 255);
+
 .color-status-ok {
     color: $status-ok-color;
 }
