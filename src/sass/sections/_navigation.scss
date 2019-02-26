@@ -1,6 +1,6 @@
 // Separator for navigation items
 @mixin nav-item-separator {
-    border-bottom: 1px solid $border-grey;
+    border-bottom: 1px solid $border-color;
 }
 
 #navigation-topheader {
@@ -80,6 +80,7 @@
                 padding: $main-padding;
                 width: 100%;
                 box-sizing: border-box;
+                color: $text-dark-background-color;
 
                 .md-errors-spacer {
                     display: none;

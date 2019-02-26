@@ -32,16 +32,24 @@
 
         }
 
-        .conversation-header-details-detail,
+        .conversation-header-details-detail {
+            display: inherit;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.3;
+            white-space: nowrap;
+            color: $text-dark-background-color;
+        }
+
         .conversation-header-details-name {
             display: inherit;
             max-width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
             line-height: 1.3;
-            color: $text-dark-background-color;
-            // background-color: $background-light-color;
-		white-space: nowrap;
+            white-space: nowrap;
+            color: $text-on-background-topheader-offset-color;
         }
     }
 
@@ -104,6 +112,8 @@
 
             .compose {
                 caret-color: $text-bright-background-color;
+                color: $text-dark-background-color;
+                border: 0px solid red;
             }
         }
 

@@ -1,8 +1,3 @@
-.md-button {
-    // color: $text-dark-background-color;
-    // background-color: red;
-}
-
 md-dialog md-dialog-actions .md-button {
     background-color: $button-color-enabled;
 }
@@ -39,6 +34,10 @@ md-select:not([disabled]):focus .md-select-value {
     color: $text-dark-background-color;
 }
 
+md-menu-content md-menu-item {
+    color: $button-text-dark-color;
+}
+
 
 button {
     i.material-icons {
@@ -46,3 +45,65 @@ button {
         vertical-align: middle;
     }
 }
+
+// .md-button:not([disabled]) {
+//     color: $button-text-color;
+//     background-color: $button-color-enabled; }
+
+// .md-button:not([disabled]):hover {
+//     color: $button-text-color;
+//     background-color: $button-color-enabled; }
+  
+//   .md-button:not([disabled]).md-focused {
+//     color: $button-text-color;
+//     background-color: $button-color-enabled; }
+  
+//   .md-button:not([disabled]).md-icon-button:hover {
+//     color: $button-text-color;
+//     background-color: transparent; }
+
+.md-button {
+    .md-fab {
+        background-color: $threema-green;
+        color: $text-bright-background-color;
+
+        md-icon {
+            color: $text-bright-background-color;
+        }
+
+        :not([disabled]) {
+            :hover {
+                background-color: $threema-green;
+            }
+
+            .md-focused {
+                background-color: $threema-green;
+            }
+        }
+    }
+}
+
+.md-button.md-raised {
+    color: $button-text-color;
+    background-color: $button-color-enabled; }
+    .md-button.md-raised:not([disabled]) md-icon {
+      color: $button-text-color; }
+    .md-button.md-raised:not([disabled]):hover {
+      background-color: $button-color-enabled; }
+    .md-button.md-raised:not([disabled]).md-focused {
+      background-color: $button-color-pressed; }
+
+
+.md-button.md-warn {
+    color: $status-error-color; }
+    .md-button.md-warn.md-raised, .md-button.md-warn.md-fab {
+        color: $button-text-light-color;
+        background-color: $status-error-color; }
+        .md-button.md-warn.md-raised:not([disabled]) md-icon, .md-button.md-warn.md-fab:not([disabled]) md-icon {
+        color: $button-text-light-color; }
+        .md-button.md-warn.md-raised:not([disabled]):hover, .md-button.md-warn.md-fab:not([disabled]):hover {
+        background-color: $status-error-disabled-color; }
+        .md-button.md-warn.md-raised:not([disabled]).md-focused, .md-button.md-warn.md-fab:not([disabled]).md-focused {
+        background-color: $status-error-disabled-color; }
+    .md-button.md-warn:not([disabled]) md-icon {
+        color: $status-error-color; }

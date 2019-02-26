@@ -81,6 +81,7 @@
                 min-height: 68px;
                 >* {
                     margin-left: 8px;
+                    color: $text-on-background-topheader-offset-color;
                 } // TODO This might need renaming to header-detail
                 .header-detail {
                     display: flex;
@@ -110,12 +111,12 @@
                         display: inline-block;
                     }
                     .material-icons {
-                        color: $material-grey-color;
+                        color: $button-color-enabled;
                     }
                 }
             }
             .detail-content {
-                // background-color: $background-very-light-color;
+                background-color: $background-dark-color;
                 color: $text-bright-background-color;
                 ul {
                     margin: 0;
@@ -163,7 +164,7 @@
                 .detail-content {
                     flex-grow: 1;
                     overflow: auto;
-                    background-color: #efebe9;
+                    // background-color: #efebe9;
                     .two-row {
                         display: flex;
                         flex-flow: row;
@@ -183,6 +184,7 @@
                                 position: relative;
                                 width: 50%;
                                 overflow: hidden;
+                                background-color: $background-very-light-color;
 
                                 &::before {
                                     display: block;
@@ -361,8 +363,8 @@ md-icon.md-primary {
 }
 
 md-input-container .md-input {
-    color: $text-dark-background-color;
     border-color: $text-dark-background-color;
+    color: $text-dark-background-color;
 }
 
 md-input-container label {
