@@ -5,6 +5,7 @@
     &.alert md-icon {
         color: $status-error-color;
     }
+
     md-icon {
         // sass-lint:disable no-vendor-prefixes
         -webkit-touch-callout: none;
@@ -22,6 +23,7 @@
         height: 24px;
         line-height: 24px;
     }
+
     .battery-percent {
         top: 20px;
         left: 1px;

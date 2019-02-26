@@ -1,7 +1,7 @@
 #welcome {
+    background-color: $background-welcome-light-color;
     padding: 16px 32px;
     line-height: 1.4em;
-    background-color: $background-welcome-light-color;
 
     .state {
         margin-top: 1em;
@@ -24,20 +24,20 @@
 
     md-input-container {
         margin-right: 32px;
-        margin-left: 32px;
         margin-right: 32px;
+        margin-left: 32px;
         border-color: $threema-green;
     }
 
     input {
         border-color: $threema-green;
-        caret-color: $threema-green;
         color: $text-placeholder-color;
+        caret-color: $threema-green;
     }
 
     ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: $text-placeholder-color;
-        opacity: 1; /* Firefox */
+        opacity: 1;
+        color: $text-placeholder-color; /* Firefox */
     }
     
     :-ms-input-placeholder { /* Internet Explorer 10-11 */
@@ -53,10 +53,10 @@
             display: flex;
             flex-direction: horizontal;
             margin-bottom: 16px;
-            background-color: $status-warning;
-            padding: 8px;
-            background-color: $status-warning-color;
             margin-bottom: 16px;
+            background-color: $status-warning;
+            background-color: $status-warning-color;
+            padding: 8px;
             p {
                 text-align: left;
                 line-height: 1.4em;
@@ -108,10 +108,10 @@
         button {
             margin-top: 0;
             margin-bottom: 32px;
-            margin-left: 0;
             margin-bottom: 32px;
-            color: $button-text-color;
+            margin-left: 0;
             background-color: $button-color-enabled;
+            color: $button-text-color;
         }
     }
 
@@ -142,14 +142,14 @@
 
     .loading {
         margin-top: 48px;
-        color: black;
+        color: #000000;
 
         md-progress-circular {
             margin: 0 auto;
-            color: black;
+            color: #000000;
             svg path {
+                color: #000000;
                 stroke-width: 12px !important;
-                color: black;
             }
         }
 
@@ -182,10 +182,10 @@
             }
 
             ul {
-                font-size: .9em;
-                list-style-type: none;
                 color: $text-bright-background-welcome-color;
+                font-size: .9em;
                 font-size: 0.9em;
+                list-style-type: none;
             }
 
             li {
@@ -208,19 +208,19 @@
     .notification {
         flex-direction: horizontal;
         margin-bottom: 16px;
-        background-color: #ff9800;
-        padding: 8px;
-                color: $text-bright-background-welcome-color;
-        background-color: #ff9800;
         margin-bottom: 16px;
+        background-color: #ff9800;
+                background-color: #ff9800;
+        padding: 8px;
+        color: $text-bright-background-welcome-color;
         p {
-            font-size: 0.8em;
-                color: $text-bright-background-welcome-color;
+            width: 100%;
+                text-align: center;
             line-height: 1.4em;
+            color: $text-bright-background-welcome-color;
+            font-size: 0.8em;
             font-size: .8em;
             font-weight: bold;
-            text-align: center;
-            width: 100%;
         }
     }
 }

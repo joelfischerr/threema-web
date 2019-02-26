@@ -30,6 +30,7 @@
     &.wide #main {
         min-height: 272px;
     } // Set min height of welcome screen
+
     &:not(.wide) #main {
         height: auto;
         min-height: 620px;
@@ -84,6 +85,7 @@
                     margin-left: 8px;
                     color: $text-on-background-topheader-offset-color;
                 } // TODO This might need renaming to header-detail
+
                 .header-detail {
                     display: flex;
                     flex-direction: column;
@@ -133,14 +135,17 @@
                     }
                 }
             }
+
             md-card md-card-content {
                 background-color: $background-very-light-color;
                 color: $text-bright-background-color;
             }
+
             md-card-title {
                 background-color: $background-very-light-color;
                 color: $text-bright-background-color;
             } // editable or readonly detail content
+
             >.form {
                 display: flex;
                 flex-direction: column;
@@ -186,9 +191,9 @@
                             // be sure the avatar has always the same height as width
                             &.avatar {
                                 position: relative;
+                                background-color: $background-very-light-color;
                                 width: 50%;
                                 overflow: hidden;
-                                background-color: $background-very-light-color;
 
                                 &::before {
                                     display: block;
@@ -222,15 +227,18 @@
             }
         }
     }
+
     &:not(.show-detail) {
         #navigation {
             flex: 1 6 100%;
             max-width: 100%;
         }
+
         #detail {
             display: none;
         }
     }
+
     &.show-detail {
         #navigation {
             flex: 1 6 30%;
@@ -238,6 +246,7 @@
             min-width: 200px;
             max-width: 30%;
         }
+
         #detail {
             flex: 3 1 70%;
             max-width: 70%;
@@ -248,8 +257,8 @@
 .material-icons {
     &.as-button {
         opacity: .5;
-        color: $icon-color;
         cursor: pointer;
+        color: $icon-color;
 
         &:hover {
             opacity: 1;
@@ -319,9 +328,10 @@ a.click-action {
 // show dt as threema green subjects
 .key-values {
     dt {
-        color: $threema-green;
         padding-bottom: ($main-padding);
+        color: $threema-green;
     }
+
     dd {
         display: block;
         margin-bottom: $main-padding * 2;
