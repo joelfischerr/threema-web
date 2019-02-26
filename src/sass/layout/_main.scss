@@ -60,6 +60,7 @@
         flex-direction: column;
         height: 100%;
     }
+
     #detail {
         height: 100%;
 
@@ -102,6 +103,7 @@
                         }
                     }
                 }
+
                 .header-buttons {
                     flex: 1;
                     text-align: right;
@@ -110,11 +112,13 @@
                     md-progress-circular {
                         display: inline-block;
                     }
+
                     .material-icons {
-                        color: $button-color-enabled;
+                        color: $button-text-color;
                     }
                 }
             }
+
             .detail-content {
                 background-color: $background-dark-color;
                 color: $text-bright-background-color;

@@ -8,7 +8,7 @@
 
     .detail-header {
 
-        color: $text-dark-background-color;
+        color: $button-text-color;
         background-color: $conversation-header-color;
 
         .header-avatar {
@@ -399,6 +399,7 @@
                 min-height: 1em;
                 vertical-align: top;
                 font-size: 1em;
+                color: $button-text-color;
             }
         }
     }
