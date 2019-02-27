@@ -73,13 +73,10 @@
         align-items: center;
         justify-content: space-between;
         background-color: $background-light-color;
-        background-color: #ffffff;
-        padding: 8px;
         padding: 8px;
 
         .message-quote {
             @include word-wrap;
-            max-width: 85%;
             max-width: 85%;
             line-height: 1.3em;
         }
