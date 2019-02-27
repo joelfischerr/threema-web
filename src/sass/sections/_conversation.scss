@@ -484,19 +484,18 @@
 
         .line {
             flex-grow: 1;
-            border-bottom: 1px solid #bbbbbb;
-            border-bottom: 1px solid #bbbbbb;
-            text-align: center; // TODO: Extract color
+            border-bottom: 1px solid $text-dark-background-color;
+            text-align: center;
             line-height: 0;
         }
 
         .text {
             margin: 0;
             padding: 0 10px;
-            text-shadow: 0 0 4px #bbbbbb;
-            text-shadow: 0 0 4px $border-color;
+            text-shadow: 0 0 4px $text-dark-background-color;
             font-size: .9em;
             font-weight: 300;
+            color: $text-dark-background-color;
         }
     }
 
