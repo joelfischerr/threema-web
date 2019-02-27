@@ -6,17 +6,17 @@
 $wallpaper: "../img/wallpaper_light.png?"; // TODO: Use a darker wallpaper
 
 // Define colors
-$almost-black: rgb(27, 27, 27);
-$threema-green: rgb(0, 150, 136);
-$very-dark-gray: rgb(46, 46, 46);
-$standard-gray: rgb(83, 83, 83);
+// $almost-black: rgb(27, 27, 27);
+$threema-green-color: rgb(0, 150, 136);
+// $very-dark-gray: rgb(46, 46, 46);
+// $standard-gray: rgb(83, 83, 83);
 
 // Primary
 $primary-900: #004d3f;
 $primary-800: #00695b;
 $primary-700: #00796a;
 $primary-600: #00897a;
-$primary-500: $threema-green; // Standard
+$primary-500: $threema-green-color; // Standard
 $primary-400: #26a699;
 $primary-300: #4db6ab;
 $primary-200: #80cbc3;
@@ -51,9 +51,9 @@ $status-error-disabled-color: #f44336a1;
 $status-starred-color: #ffc107;
 
 // Border colors
-$border-grey: $secondary-800;
-$border-dark-grey: $secondary-750;
-$border-color: rgb(82, 82, 82);
+$border-grey-color: $secondary-800;
+$border-dark-grey-color: $secondary-750;
+$border-color: $secondary-700;
 
 // Background colors
 $background-dark-color: $secondary-900;
@@ -65,16 +65,16 @@ $conversation-background-color: $background-light-color;
 $conversation-background-highlight-color: $background-dark-color;
 
 // Material colors
-$material-grey-color: rgba(0, 0, 0, 0.54);
+$material-grey-color: $secondary-900;
 $material-grey-inactive-color: lighter($material-grey-color, 50%);
-$material-grey-dark-color: rgba(0, 0, 0, .87);
-$material-card-shadow-color: px 2px 5px px rgba(0, 0, 0, 0.16),
-px 2px 5px px rgba(0, 0, 0, .23);
+$material-grey-dark-color: darken($secondary-900, 25%);
+$material-card-shadow-color: px 2px 5px px $material-grey-dark-color,
+px 2px 5px px $material-grey-dark-color;
 
 // Text colors
-$text-bright-background-color: rgb(206, 206, 206);
-$text-bright-background-welcome-color: black;
-$text-dark-background-color: rgb(165, 165, 165);
+$text-bright-background-color: $secondary-300;
+$text-bright-background-welcome-color: $secondary-900;
+$text-dark-background-color: $secondary-500;
 $text-dark-background-color-2: $text-dark-background-color;
 $latest-message-text-color: $text-dark-background-color;
 $text-protocol-updated-color: #9dd0f2;
@@ -83,32 +83,32 @@ $text-in-unread-count-offset-color: $secondary-000;
 $text-placeholder-color: $latest-message-text-color;
 $md-toolbar-color: $background-dark-color;
 $md-toolbar-text-color: $text-dark-background-color;
-$md-toolbar-button-color: rgb(65, 65, 65);
+$md-toolbar-button-color: $secondary-800;
 
 // Icon colors
 $icon-color: $secondary-000;
-$dark-icon-color: gray;
-$icon-medium-dark-color: gray;
-$bright-icon-color: gray;
+$dark-icon-color: $secondary-600;
+$icon-medium-dark-color: $secondary-500;
+$bright-icon-color: $secondary-400;
 
 // Message bubble colors
-$message-quote-color: $threema-green;
+$message-quote-color: $threema-green-color;
 $message-bubble-color-in: rgb(31, 25, 25);
 $message-bubble-color-out: rgb(27, 39, 52);
 
 // Misc colors
-$url-light-blue-color: #63a6cf;
 $active-placeholder-color: $text-dark-background-color;
+$url-light-blue-color: #63a6cf;
 $work-blue-color: #3b84df;
 
 // Button colors
 $button-color: $material-grey-color;
-$button-color-enabled: rgb(117, 116, 116);
-$button-color-disabled: rgba(80, 80, 80, 0.65);
-$button-color-pressed: rgb(85, 84, 84);
-$button-text-color: rgb(255, 255, 255);
-$button-text-dark-color: rgb(255, 255, 255);
-$button-text-light-color: rgb(0, 0, 0);
+$button-color-enabled: $secondary-600;
+$button-color-disabled: lighten($secondary-700, 65%);
+$button-color-pressed: $secondary-750;
+$button-text-color: $secondary-000;
+$button-text-dark-color: $secondary-000;
+$button-text-light-color: $secondary-900;
 
 .color-status-ok {
     color: $status-ok-color;

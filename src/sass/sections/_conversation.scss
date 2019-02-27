@@ -111,7 +111,7 @@
             width: 100%;
 
             .compose {
-                border: 0 solid #ff0000;
+                border: 0 solid $status-error-color;
                 color: $text-dark-background-color;
                 caret-color: $text-bright-background-color;
             }

@@ -4,7 +4,7 @@
 // // See here for the scope of the variables: https://stackoverflow.com/questions/12365703/scss-variable-scope#30009712
 
 $wallpaper: "../img/wallpaper_light.png";
-$threema-green: rgb(0, 150, 136);
+$threema-green-color: rgb(0, 150, 136);
 $dark-gray: rgb(83, 83, 83);
 $middle-gray: rgb(112, 112, 112);
 $light-gray: rgb(235, 235, 235);
@@ -46,8 +46,8 @@ $status-error-disabled-color: #f44336a1;
 $status-starred-color: #ffc107;
 
 // Border colors
-$border-grey: lighten($secondary-570, 50%);
-$border-dark-grey: $border-grey;
+$border-grey-color: lighten($secondary-570, 50%);
+$border-dark-grey-color: $border-grey-color;
 $border-color: $secondary-600;
 
 // Background colors
@@ -88,7 +88,7 @@ $bright-icon-color: $dark-gray;
 $icon-medium-dark-color: $dark-gray;
 
 // Message bubble colors
-$message-quote-color: $threema-green;
+$message-quote-color: $threema-green-color;
 $message-bubble-color-in: #f7f7f7;
 $message-bubble-color-out: #dff0d8;
 

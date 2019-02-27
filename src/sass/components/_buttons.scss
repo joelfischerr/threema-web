@@ -65,7 +65,7 @@ button {
 
 .md-button {
     .md-fab {
-        background-color: $threema-green;
+        background-color: $threema-green-color;
         color: $text-bright-background-color;
 
         md-icon {
@@ -74,11 +74,11 @@ button {
 
         :not([disabled]) {
             :hover {
-                background-color: $threema-green;
+                background-color: $threema-green-color;
             }
 
             .md-focused {
-                background-color: $threema-green;
+                background-color: $threema-green-color;
             }
         }
     }

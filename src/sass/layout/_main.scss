@@ -242,7 +242,7 @@
     &.show-detail {
         #navigation {
             flex: 1 6 30%;
-            border-right: 1px solid $border-dark-grey;
+            border-right: 1px solid $border-dark-grey-color;
             min-width: 200px;
             max-width: 30%;
         }
@@ -329,7 +329,7 @@ a.click-action {
 .key-values {
     dt {
         padding-bottom: ($main-padding);
-        color: $threema-green;
+        color: $threema-green-color;
     }
 
     dd {
