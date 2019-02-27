@@ -116,7 +116,7 @@
                     }
 
                     .material-icons {
-                        color: $button-text-color;
+                        color: $bright-icon-color;
                     }
                 }
             }
@@ -365,7 +365,7 @@ a.click-action {
 }
 
 .material-icons {
-    color: $secondary-100;
+    color: $icon-color;
 }
 
 .material-icons.md-medium-dark {
@@ -448,4 +448,8 @@ md-toolbar:not(.md-menu-toolbar) {
     .md-button.md-icon-button md-icon {
         color: $md-toolbar-button-color;
     }
+}
+
+.material-icons.md-light {
+    color: $bright-icon-color;
 }
