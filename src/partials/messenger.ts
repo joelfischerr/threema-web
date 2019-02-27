@@ -149,6 +149,8 @@ class SettingsController {
     private notificationSound: boolean;
 
     private themeName: string;
+    public themeOptions = ['Light (White)', 'Dark (Black)'];
+
 
     constructor($mdDialog: ng.material.IDialogService,
                 $window: ng.IWindowService,
