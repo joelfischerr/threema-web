@@ -2,36 +2,36 @@ md-dialog md-dialog-actions .md-button {
     background-color: $button-color-enabled;
 }
 
-// .material-icons.md-light {
-//     color: $dark-icon-color;
-// }
-
 md-select {
-    // border-bottom-color: pink;
+    .md-select-value {
+        color: $text-dark-background-color;
+
+        .md-select-placeholder {
+            color: $text-dark-background-color;
+        }
+
+        .md-select-icon {
+            color: $text-dark-background-color;
+        }
+    }
+
+    :not([disabled]) {
+        :focus .md-select-value {
+            color: $text-dark-background-color;
+        }
+    }
 }
 
-md-select .md-select-value.md-select-placeholder {
-    color: $text-dark-background-color;
-}
-
-md-select .md-select-value {
-    color: $text-dark-background-color;
-}
-
-.md-select-value .md-select-icon {
-    color: $text-dark-background-color;
-}
-
-.md-select-menu-container.md-active md-select-menu>* {
-    background-color: $background-dark-color;
-    color: $text-dark-background-color;
+.md-select-menu-container {
+    .md-active {
+        md-select-menu>* {
+            background-color: $background-dark-color;
+            color: $text-dark-background-color;
+        }
+    }
 }
 
 md-select-menu md-content md-option {
-    color: $text-dark-background-color;
-}
-
-md-select:not([disabled]):focus .md-select-value {
     color: $text-dark-background-color;
 }
 
@@ -46,22 +46,6 @@ button {
         vertical-align: middle;
     }
 }
-
-// .md-button:not([disabled]) {
-//     color: $button-text-color;
-//     background-color: $button-color-enabled; }
-
-// .md-button:not([disabled]):hover {
-//     color: $button-text-color;
-//     background-color: $button-color-enabled; }
-  
-//   .md-button:not([disabled]).md-focused {
-//     color: $button-text-color;
-//     background-color: $button-color-enabled; }
-  
-//   .md-button:not([disabled]).md-icon-button:hover {
-//     color: $button-text-color;
-//     background-color: transparent; }
 
 .md-button {
     .md-fab {
@@ -82,37 +66,65 @@ button {
             }
         }
     }
+
+    .md-raised {
+        background-color: $button-color-enabled;
+        color: $button-text-color;
+
+        :not([disabled]) md-icon {
+            color: $button-text-color;
+        }
+
+        :not([disabled]) {
+            :hover {
+                background-color: $button-color-enabled;
+            }
+
+            .md-focused {
+                background-color: $button-color-pressed;
+            }
+        }
+    }
+
+    .md-warn {
+        color: $status-error-color;
+
+        :not([disabled]) md-icon {
+            color: $status-error-color;
+        }
+
+        .md-raised {
+            background-color: $status-error-color;
+            color: $button-text-light-color;
+
+            :not([disabled]) md-icon {
+                color: $button-text-light-color;
+
+                :hover {
+                    background-color: $status-error-disabled-color;
+                }
+
+                .md-focused {
+                    background-color: $status-error-disabled-color;
+                }
+            }
+        }
+
+        md-fab {
+            background-color: $status-error-color;
+            color: $button-text-light-color;
+
+            :not([disabled]) md-icon {
+                color: $button-text-light-color;
+
+                :hover {
+                    background-color: $status-error-disabled-color;
+                }
+
+                .md-focused {
+                    background-color: $status-error-disabled-color;
+                }
+            }
+        }
+    }
 }
-
-.md-button.md-raised {
-    background-color: $button-color-enabled;
-    color: $button-text-color; }
-
-    .md-button.md-raised:not([disabled]) md-icon {
-      color: $button-text-color; }
-
-    .md-button.md-raised:not([disabled]):hover {
-      background-color: $button-color-enabled; }
-
-    .md-button.md-raised:not([disabled]).md-focused {
-      background-color: $button-color-pressed; }
-
-
-.md-button.md-warn {
-    color: $status-error-color; }
-
-    .md-button.md-warn.md-raised, .md-button.md-warn.md-fab {
-        background-color: $status-error-color;
-        color: $button-text-light-color; }
-
-        .md-button.md-warn.md-raised:not([disabled]) md-icon, .md-button.md-warn.md-fab:not([disabled]) md-icon {
-        color: $button-text-light-color; }
-
-        .md-button.md-warn.md-raised:not([disabled]):hover, .md-button.md-warn.md-fab:not([disabled]):hover {
-        background-color: $status-error-disabled-color; }
-
-        .md-button.md-warn.md-raised:not([disabled]).md-focused, .md-button.md-warn.md-fab:not([disabled]).md-focused {
-        background-color: $status-error-disabled-color; }
-
-    .md-button.md-warn:not([disabled]) md-icon {
-        color: $status-error-color; }

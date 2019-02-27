@@ -43,7 +43,7 @@ $secondary: $secondary-500;
 $status-ok-color: #4caf50;
 $status-warning-color: #ff9800;
 $status-error-color: #f44336;
-$status-error-disabled-color: #f44336a1;
+$status-error-disabled-color: #f44336;
 $status-starred-color: #ffc107;
 
 // Border colors
@@ -63,11 +63,11 @@ $conversation-header-color: #424242;
 $latest-message-text-color: $middle-gray;
 
 // Material colors
-$material-grey-color: rgba(0, 0, 0, 0.54);
-$material-grey-inactive-color: rgba(0, 0, 0, 0.26);
-$material-grey-dark-color: rgba(0, 0, 0, 0.87);
-$material-card-shadow-color: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
-0 2px 5px 0 rgba(0, 0, 0, 0.23);
+$material-grey-color: rgba(0, 0, 0, .54);
+$material-grey-inactive-color: rgba(0, 0, 0, .26);
+$material-grey-dark-color: rgba(0, 0, 0, .87);
+$material-card-shadow-color: 0 2px 5px 0 rgba(0, 0, 0, .16),
+0 2px 5px 0 rgba(0, 0, 0, .23);
 
 // Text colors
 $text-bright-background-color: #000000;
@@ -129,4 +129,4 @@ $button-text-light-color: rgb(255, 255, 255);
     color: $material-grey-inactive-color;
 }
 
-@import "../app";
+@import '../app';

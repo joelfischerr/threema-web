@@ -47,7 +47,7 @@ $secondary: $secondary-500;
 $status-ok-color: #4caf50;
 $status-warning-color: #ff9800;
 $status-error-color: #f44336;
-$status-error-disabled-color: #f44336a1;
+$status-error-disabled-color: #f44336;
 $status-starred-color: #ffc107;
 
 // Border colors
@@ -132,4 +132,4 @@ $button-text-light-color: $secondary-900;
     color: $material-grey-inactive-color;
 }
 
-@import "../app";
+@import '../app';
