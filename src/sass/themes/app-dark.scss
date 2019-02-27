@@ -4,6 +4,7 @@
 // // See here for the scope of the variables: https://stackoverflow.com/questions/12365703/scss-variable-scope#30009712
 
 $wallpaper: "../img/wallpaper_light.png?"; // TODO: Use a darker wallpaper
+
 // Define colors
 $almost-black: rgb(27, 27, 27);
 $threema-green: rgb(0, 150, 136);
@@ -34,7 +35,7 @@ $conversation-background-highlight-color: $background-dark-color;
 
 // Material colors
 $material-grey-color: rgba(0, 0, 0, 0.54) !default;
-$material-grey-inactive-color: rgba(0, 0, 0, .26) !default;
+$material-grey-inactive-color: lighter($material-grey-color, 50%) !default;
 $material-grey-dark-color: rgba(0, 0, 0, .87) !default;
 $material-card-shadow-color: px 2px 5px px rgba(0, 0, 0, 0.16),
 px 2px 5px px rgba(0, 0, 0, .23) !default;
@@ -98,11 +99,4 @@ $button-text-light-color: rgb(0, 0, 0);
     color: $material-grey-inactive-color;
 }
 
-
-// //-------------------------------
-// //-------------------------------------------------
-// //-------------------------------------------------
-// //-------------------------------------------------
 @import "../app";
-// // }
-// // @import "../components/emoji_picker";
