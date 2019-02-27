@@ -71,23 +71,19 @@ export class ThemeService {
      */
     public runTheme() {
         let themeName = this.getTheme();
-        this.$log.warn(this.logTag, 'Setting the theme to: ', themeName);
+        this.$log.info(this.logTag, 'Setting the theme to: ', themeName);
 
         if (themeName === 'Dark (Black)') {
             themeName = 'app-dark.css';
-        } else if (themeName === 'Dark (Blue)') {
-            themeName = 'app-dark.css';
         } else if (themeName === 'Light (White)') {
-            themeName = 'app-light.css';
-        } else if (themeName === 'Light (Grey)') {
             themeName = 'app-light.css';
         } else {
             themeName = 'app-light.css';
         }
 
-        this.$log.warn(this.logTag, 'Setting the link to: ', '/css/' + themeName);
+        this.$log.info(this.logTag, 'Setting the link to: ', '/css/' + themeName);
 
-        // Copied from StackOverflow: https://stackoverflow.com/a/577002/2310837
+        // StackOverflow: https://stackoverflow.com/a/577002/2310837
         // you could encode the css path itself to generate id..
         const cssId = 'themeID';
         const head = document.getElementsByTagName('head')[0];
