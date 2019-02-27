@@ -69,9 +69,8 @@
             background-color: $conversation-header-color;
             height: 100%;
 
-            /**
-                Default style for the header in the detail
-             */
+
+            // Default style for the header in the detail
             .detail-header {
                 display: flex;
                 flex-direction: row;
@@ -81,6 +80,7 @@
                 // background-color: $dark-background-color;
                 padding: 0 $main-padding;
                 min-height: 68px;
+
                 >* {
                     margin-left: 8px;
                     color: $text-on-conversation-header-color;
@@ -124,6 +124,7 @@
             .detail-content {
                 background-color: $background-dark-color;
                 color: $text-bright-background-color;
+
                 ul {
                     margin: 0;
                     padding: 0;
@@ -150,6 +151,7 @@
                 display: flex;
                 flex-direction: column;
                 height: 100%;
+
                 &.readonly {
                     .form-header {
                         height: 400px;
@@ -157,6 +159,7 @@
 
                         eee-avatar {
                             background-color: $background-very-light-color;
+
                             img {
                                 position: relative;
                                 top: calc(-100%);
@@ -173,10 +176,11 @@
                 .detail-content {
                     flex-grow: 1;
                     overflow: auto;
-                    // background-color: #efebe9;
+
                     .two-row {
                         display: flex;
                         flex-flow: row;
+
                         &.div {
                             > :first-child {
                                 margin-right: 4 * $main-padding;
@@ -255,6 +259,9 @@
 }
 
 .material-icons {
+    color: $icon-color;
+
+
     &.as-button {
         opacity: .5;
         cursor: pointer;
@@ -263,6 +270,22 @@
         &:hover {
             opacity: 1;
         }
+    }
+
+    .md-dark {
+        color: $dark-icon-color;
+    }
+
+    .md-medium-dark {
+        color: $icon-medium-dark-color;
+    }
+
+    .md-light {
+        color: $bright-icon-color;
+    }
+
+    .md-primary {
+        color: $icon-color;
     }
 }
 
@@ -278,14 +301,26 @@ md-dialog {
 .md-dialog-content {
     background-color: $background-light-color;
     color: $text-bright-background-color;
+
     &.center {
         text-align: center;
     }
 }
 
-md-checkbox.md-default-theme:not(.md-checked) .md-icon,
-md-checkbox:not(.md-checked) .md-icon {
-    border-color: $text-bright-background-color;
+md-checkbox {
+    .md-default-theme {
+        :note(.md-checked) {
+            .md-icon {
+                border-color: $text-bright-background-color;
+            }
+        }
+    }
+
+    :not(.md-checked) {
+        .md-icon {
+            border-color: $text-bright-background-color;
+        }
+    }
 }
 
 input.threema-id {
@@ -360,52 +395,41 @@ a.click-action {
     }
 }
 
-.material-icons.md-dark {
-    color: $dark-icon-color;
-}
+md-input-container {
 
-.material-icons {
-    color: $icon-color;
-}
+    .md-input {
+        border-color: $text-dark-background-color;
+        color: $text-dark-background-color;
+    }
 
-.material-icons.md-medium-dark {
-    color: $icon-medium-dark-color;
-}
+    label {
+        color: $text-bright-background-color;
+    }
 
-md-icon.md-primary {
-    color: $icon-color;
-}
+    .md-input-has-value label {
+        color: $text-bright-background-color;
+    }
 
-md-input-container .md-input {
-    border-color: $text-dark-background-color;
-    color: $text-dark-background-color;
-}
+    :not(.md-input-invalid).md-input-focused {
+        border-color: $text-dark-background-color;
+    }
 
-md-input-container label {
-    color: $text-bright-background-color;
-}
-
-md-input-container.md-input-has-value label {
-    color: $text-bright-background-color;
-}
-
-md-input-container:not(.md-input-invalid).md-input-focused {
-    border-color: $text-dark-background-color;
-}
-
-md-input-container:not(.md-input-invalid).md-input-focused label {
-    color: $text-dark-background-color;
+    :not(.md-input-invalid).md-input-focused label {
+        color: $text-dark-background-color;
+    }
 }
 
 // angular material extensions
-md-toast.md-center {
-    left: 50%;
-    transform: translate3d(-50%, 0, 0);
-}
+md-toast {
+    .md-center {
+        left: 50%;
+        transform: translate3d(-50%, 0, 0);
+    }
 
-md-toast .md-toast-content {
-    span {
-        text-align: center;
+    .md-toast-content {
+        span {
+            text-align: center;
+        }
     }
 }
 
@@ -441,15 +465,15 @@ md-list-item .md-list-item-inner>md-checkbox .md-label {
     font-weight: 300;
 }
 
-md-toolbar:not(.md-menu-toolbar) {
-    background-color: $md-toolbar-color;
-    color: $md-toolbar-text-color;
-    
-    .md-button.md-icon-button md-icon {
-        color: $md-toolbar-button-color;
-    }
-}
+md-toolbar {
+    :not(.md-menu-toolbar) {
+        background-color: $md-toolbar-color;
+        color: $md-toolbar-text-color;
 
-.material-icons.md-light {
-    color: $bright-icon-color;
+        .md-button {
+            .md-icon-button md-icon {
+                color: $md-toolbar-button-color;
+            }
+        }
+    }
 }
