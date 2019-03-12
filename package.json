@@ -5,8 +5,8 @@
   "scripts": {
     "build": "npm run build:js && npm run build:css",
     "build:js": "node dist/browserify.js app",
-    "build:css": "node-sass -o public/css/ --output-style compressed src/sass/",
-    "build:css:watch": "node-sass -w -r --source-map true --source-map-embed true -o public/css/themes/ --output-style compressed src/sass/themes/",
+    "build:css": "node-sass -o public/css/ --output-style compressed src/sass/themes",
+    "build:css:watch": "node-sass -w -r --source-map true --source-map-embed true -o public/css/ --output-style compressed src/sass/themes",
     "build:tests": "echo -e 'NOTE: Use either \"npm build:unittests\" or \"npm build:uitests\"\n' && exit 1",
     "build:unittests": "node dist/browserify.js test:unit",
     "build:uitests": "npm run build:css && node dist/browserify.js test:ui",

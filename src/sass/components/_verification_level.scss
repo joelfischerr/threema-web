@@ -1,5 +1,7 @@
-// Verification level
+// Verification level.
+
 .verification-dots {
+
     div {
         display: inline-block;
         margin-right: 2px;
@@ -7,7 +9,7 @@
         background-color: #e0e0e0;
         width: 11px;
         height: 11px;
-    }
+   }
 
     &.level1 {
         div {
