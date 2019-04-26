@@ -61,8 +61,10 @@ $scrollbar-background-color: $secondary-900;
 // Background colors
 $background-dark-color: $secondary-900;
 $background-light-color: $secondary-850;
+$background-light-alt-color: $background-light-color;
 $background-welcome-light-color: $secondary-000;
 $background-very-light-color: $secondary-750;
+$navigation-header-color: $secondary-800; // secondary-800
 $conversation-header-color: $secondary-800;
 $conversation-background-color: $background-light-color;
 $conversation-background-highlight-color: $background-dark-color;
@@ -78,6 +80,7 @@ px 2px 5px px $material-grey-dark-color;
 $text-bright-background-color: $secondary-300;
 $text-dark-color: $secondary-500;
 $text-light-color: $text-dark-color;
+$conversation-header-text-color: $text-light-color;
 
 $text-bright-background-welcome-color: $secondary-999;
 $latest-message-text-color: $text-dark-color;

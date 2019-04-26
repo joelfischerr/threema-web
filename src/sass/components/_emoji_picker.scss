@@ -1,6 +1,6 @@
 .twemoji-picker {
     margin: 0;
-    background-color: $background-light-color;
+    background-color: $background-light-alt-color;
     padding: 0 8px;
     min-height: 216px;
 
@@ -28,7 +28,7 @@
         left: 1px;
         margin-left: -1px;
         border: 1px solid $border-color;
-        background: $background-light-color;
+        background: $background-light-alt-color;
         cursor: pointer;
         padding: 4px;
         height: 32px;
@@ -47,7 +47,7 @@
         bottom: 0;
         left: 0;
         border: 1px solid $border-color;
-        background: $background-light-color;
+        background: $background-light-alt-color;
         padding: 10px 10px 0;
         overflow-y: scroll;
 
@@ -61,7 +61,7 @@
 
         &:checked ~ label {
             z-index: 2;
-            border-bottom: 1px solid $background-light-color;
+            border-bottom: 1px solid $background-light-alt-color;
             background: $background-dark-color;
         }
 
