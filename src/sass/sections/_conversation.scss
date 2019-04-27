@@ -111,9 +111,6 @@
             .compose {
                 color: $text-dark-color;
                 caret-color: $text-bright-background-color;
-                :empty::before {
-                    color: red;
-                }
             }
         }
 
