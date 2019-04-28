@@ -27,11 +27,11 @@ md-select {
 }
 
 md-select-menu md-content {
-    background-color: $background-very-light-color !important;
+    background-color: $background-light-color !important;
 }
 
 md-select-menu md-content md-option {
-    background-color: $background-very-light-color !important;
+    background-color: $background-light-color !important;
     color: $text-dark-color;
 }
 
@@ -46,7 +46,7 @@ md-select-menu md-content md-option[selected] {
 }
 
 md-menu-content md-menu-item {
-    background-color: $background-very-light-color;
+    background-color: $background-light-color;
     color: $button-text-dark-color;
 }
 

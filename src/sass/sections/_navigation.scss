@@ -135,26 +135,26 @@
     .conversation-wrapper {
         @include nav-item-separator;
         display: block;
-        background-color: $conversation-background-color;
+        background-color: $navigation-background-color;
 
         .conversation {
             display: flex;
             flex-direction: row;
             align-items: center;
-            border-left: $border-width * $border-count solid $conversation-background-color;
+            border-left: $border-width * $border-count solid $navigation-background-color;
             padding: (1.5 * $main-padding) $main-padding - ($border-width * ($border-count - 1));
 
             &.active {
                 &:hover {
-                    border-color: $conversation-background-highlight-color;
-                    background-color: $conversation-background-highlight-color;
+                    border-color: $navigation-background-highlight-color;
+                    background-color: $navigation-background-highlight-color;
                 }
             }
 
             &:hover {
                 &:not(.active) {
-                    border-color: $conversation-background-highlight-color;
-                    background-color: $conversation-background-highlight-color;
+                    border-color: $navigation-background-highlight-color;
+                    background-color: $navigation-background-highlight-color;
                 }
             }
 
@@ -164,8 +164,8 @@
                     to right,
                     $status-error,
                     $status-error 50%,
-                    $conversation-background-color 50%,
-                    $conversation-background-color 100%
+                    $navigation-background-color 50%,
+                    $navigation-background-color 100%
                 ) 1 100%;
 
                 &.active {
@@ -173,8 +173,8 @@
                         to right,
                         $status-error,
                         $status-error 50%,
-                        $conversation-background-color 50%,
-                        $conversation-background-color 100%
+                        $navigation-background-color 50%,
+                        $navigation-background-color 100%
                     ) 1 100%;
                 }
 
@@ -183,8 +183,8 @@
                         to right,
                         $status-error,
                         $status-error 50%,
-                        $conversation-background-highlight-color 50%,
-                        $conversation-background-highlight-color 100%
+                        $navigation-background-highlight-color 50%,
+                        $navigation-background-highlight-color 100%
                     ) 1 100%;
                 }
             }
@@ -195,8 +195,8 @@
                     to right,
                     $status-starred,
                     $status-starred 50%,
-                    $conversation-background-color 50%,
-                    $conversation-background-color 100%
+                    $navigation-background-color 50%,
+                    $navigation-background-color 100%
                 ) 1 100%;
 
                 &.active {
@@ -214,8 +214,8 @@
                         to right,
                         $status-starred,
                         $status-starred 50%,
-                        $conversation-background-highlight-color 50%,
-                        $conversation-background-highlight-color 100%
+                        $navigation-background-highlight-color 50%,
+                        $navigation-background-highlight-color 100%
                     ) 1 100%;
                 }
             }
@@ -382,7 +382,7 @@
 
 #navigation-contacts {
     flex: 1;
-    background-color: $conversation-background-color;
+    background-color: $navigation-background-color;
     overflow-y: scroll;
 
     .contact {
@@ -392,7 +392,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
-        border-left: 4px solid $background-very-light-color;
+        border-left: 4px solid $background-light-color;
         padding: 12px 8px;
 
         .avatar-box {
@@ -431,12 +431,12 @@
             cursor: pointer;
 
             &.active {
-                border-color: $conversation-background-highlight-color;
-                background-color: $conversation-background-highlight-color;
+                border-color: $navigation-background-highlight-color;
+                background-color: $navigation-background-highlight-color;
             }
 
             &:not(.active) {
-                background-color: $conversation-background-highlight-color;
+                background-color: $navigation-background-highlight-color;
             }
         }
     }

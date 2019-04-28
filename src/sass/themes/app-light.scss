@@ -38,6 +38,13 @@ $secondary: $secondary-500;
 
 // Terniary
 
+// Material colors
+$material-grey-color: $secondary-900;
+$material-grey-inactive-color: lighter($material-grey-color, 50%);
+$material-grey-dark-color: darken($secondary-900, 25%);
+$material-card-shadow-color: px 2px 5px px $material-grey-dark-color,
+px 2px 5px px $material-grey-dark-color;
+
 // Status colors
 $status-ok-color: #4caf50;
 $status-warning-color: #ff9800;
@@ -56,26 +63,22 @@ $scrollbar-background-color: $secondary-400;
 // Background colors
 $background-dark-color: #efebe9;
 $background-medium-color: #f5f5f5;
-$background-very-light-color: $secondary-000;
+$background-light-color: $secondary-000;
+
 $background-emoji-picker-color: #efefef;
+$navigation-background-color: $secondary-000;
+$navigation-background-highlight-color: $background-medium-color;
+
+// Header colors
 $navigation-header-color: $secondary-800;
 $conversation-header-color: #f6f6f6;
-$conversation-background-color: $secondary-000;
-$conversation-background-highlight-color: $background-medium-color;
-
-// Material colors
-$material-grey-color: rgba(0, 0, 0, .54);
-$material-grey-inactive-color: rgba(0, 0, 0, .26);
-$material-grey-dark-color: rgba(0, 0, 0, .87);
-$material-card-shadow-color: 0 2px 5px 0 rgba(0, 0, 0, .16),
-0 2px 5px 0 rgba(0, 0, 0, .23);
 
 // Text colors
 $text-dark-color: $secondary-999;
 $text-medium-color: $secondary-999;
 $text-light-color: $secondary-300;
-$conversation-header-text-color: $material-grey-dark-color;
 
+$conversation-header-text-color: $material-grey-dark-color;
 
 $latest-message-text-color: $material-grey-color;
 $text-placeholder-color: $middle-gray;
@@ -99,11 +102,6 @@ $message-bubble-color-in: #f7f7f7;
 $message-bubble-color-out: #dff0d8;
 $ctrl-message-bubble-color: #fcf8e3;
 
-// Misc colors
-$active-placeholder-color: #d3d3d3;
-$url-light-blue-color: #288ac7;
-$work-blue-color: #3b84df;
-
 // Button colors
 $button-color: $material-grey-color;
 $button-color-enabled: rgb(250, 250, 250);
@@ -115,6 +113,10 @@ $button-selected-color: rgba(158, 158, 158, 1);
 $button-text-dark-color: $secondary-999;
 $button-text-light-color: $secondary-000;
 
+// Misc colors
+$active-placeholder-color: #d3d3d3;
+$url-light-blue-color: #288ac7;
+$work-blue-color: #3b84df;
 $white-zero: rgba(255, 255, 255, 0);
 
 .color-status-ok {

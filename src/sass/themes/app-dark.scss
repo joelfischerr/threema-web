@@ -2,6 +2,9 @@ $wallpaper: '../../public/img/wallpaper_dark.png?';; // TODO: Use a darker wallp
 
 // Define colors
 $threema-green-color: rgb(0, 150, 136);
+$dark-gray: rgb(83, 83, 83);
+$middle-gray: rgb(112, 112, 112);
+$light-gray: rgb(235, 235, 235);
 
 // Primary
 $primary-900: #004d3f;
@@ -37,6 +40,13 @@ $secondary: $secondary-500;
 
 // Terniary
 
+// Material colors
+$material-grey-color: $secondary-900;
+$material-grey-inactive-color: lighter($material-grey-color, 50%);
+$material-grey-dark-color: darken($secondary-900, 25%);
+$material-card-shadow-color: px 2px 5px px $material-grey-dark-color,
+px 2px 5px px $material-grey-dark-color;
+
 // Status colors
 $status-ok-color: #4caf50;
 $status-warning-color: #ff9800;
@@ -55,24 +65,21 @@ $scrollbar-background-color: $secondary-900;
 // Background colors
 $background-dark-color: $secondary-900;
 $background-medium-color: $secondary-850;
-$background-very-light-color: $secondary-750;
+$background-light-color: $secondary-750;
+
 $background-emoji-picker-color: $background-medium-color;
+$navigation-background-color: $background-medium-color;
+$navigation-background-highlight-color: $background-dark-color;
+
+// Header colors
 $navigation-header-color: $secondary-800;
 $conversation-header-color: $secondary-800;
-$conversation-background-color: $background-medium-color;
-$conversation-background-highlight-color: $background-dark-color;
-
-// Material colors
-$material-grey-color: $secondary-900;
-$material-grey-inactive-color: lighter($material-grey-color, 50%);
-$material-grey-dark-color: darken($secondary-900, 25%);
-$material-card-shadow-color: px 2px 5px px $material-grey-dark-color,
-px 2px 5px px $material-grey-dark-color;
 
 // Text colors
 $text-dark-color: $secondary-500;
 $text-medium-color: $secondary-300;
 $text-light-color: $secondary-050;
+
 $conversation-header-text-color: $secondary-050;
 
 $latest-message-text-color: $secondary-500;
@@ -96,24 +103,23 @@ $message-bubble-color-in: rgb(31, 25, 25);
 $message-bubble-color-out: rgb(27, 39, 52);
 $ctrl-message-bubble-color: #0c2298; //TODO: Check what this color is in the Android App
 
-// Misc colors
-$active-placeholder-color: $text-dark-color;
-$url-light-blue-color: #63a6cf;
-$work-blue-color: #3b84df;
-
 // Button colors
 $button-color: $material-grey-color;
 $button-color-enabled: $secondary-600;
 $button-color-disabled: lighten($secondary-700, 65%);
 $button-color-pressed: $secondary-750;
-$button-hover-color: lighten($background-very-light-color, 15%);
-$button-selected-color: darken($background-very-light-color, 10%);
+$button-hover-color: lighten($background-light-color, 15%);
+$button-selected-color: darken($background-light-color, 10%);
 
 $button-text-dark-color: $secondary-000;
 $button-text-light-color: $secondary-900;
 
-
+// Misc colors
+$active-placeholder-color: $text-dark-color;
+$url-light-blue-color: #63a6cf;
+$work-blue-color: #3b84df;
 $white-zero: rgba(255, 255, 255, 0);
+
 
 .color-status-ok {
     color: $status-ok-color;
