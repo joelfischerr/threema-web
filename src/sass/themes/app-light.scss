@@ -78,7 +78,7 @@ $material-card-shadow-color: 0 2px 5px 0 rgba(0, 0, 0, .16),
 $text-bright-background-color: $secondary-999;
 $text-dark-color: $secondary-999;
 $text-light-color: $secondary-300;
-$conversation-header-text-color: black;
+$conversation-header-text-color: $material-grey-dark-color;
 
 $text-bright-background-welcome-color: $secondary-999;
 $latest-message-text-color: $material-grey-color;
@@ -93,14 +93,16 @@ $md-toolbar-button-color: $secondary-000;
 
 // Icon colors
 $icon-color: $secondary-900;
-$icon-dark-color: $material-grey-color;
+$icon-dark-color: $material-grey-dark-color;
 $icon-medium-dark-color: $dark-gray;
+$icon-material-grey-color: $material-grey-color;
 $icon-light-color: $secondary-000;
 
 // Message bubble colors
 $message-quote-color: $threema-green-color;
 $message-bubble-color-in: #f7f7f7;
 $message-bubble-color-out: #dff0d8;
+$ctrl-message-bubble-color: #fcf8e3;
 
 // Misc colors
 $url-light-blue-color: #288ac7;
@@ -114,6 +116,9 @@ $button-color-disabled: rgba(255, 254, 254, .65);
 $button-color-pressed: rgb(155, 155, 155);
 $button-text-color: $secondary-900;
 $button-text-light-color: rgb(255, 255, 255);
+$button-text-alt-color: $text-bright-background-color;
+$button-hover-color: rgba(158, 158, 158, .2);
+$button-selected-color: rgba(158, 158, 158, 1);
 
 $white-zero: rgba(255, 255, 255, 0);
 

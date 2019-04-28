@@ -260,12 +260,12 @@
 }
 
 .material-icons {
-    color: $icon-color;
+    color: $icon-material-grey-color;
 
     &.as-button {
         opacity: .5;
         cursor: pointer;
-        color: $icon-color;
+        color: $icon-material-grey-color;
 
         &:hover {
             opacity: 1;
@@ -285,12 +285,8 @@
     }
 
     .md-primary {
-        color: $icon-color;
+        color: $icon-material-grey-color;
     }
-}
-
-md-menu-content {
-    background-color: $background-light-color;
 }
 
 md-dialog.md-default-theme,
@@ -476,4 +472,8 @@ md-toolbar {
             }
         }
     }
+}
+
+md-menu-content {
+    background-color: $background-very-light-color;
 }

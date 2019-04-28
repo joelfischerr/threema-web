@@ -48,7 +48,7 @@
             text-overflow: ellipsis;
             line-height: 1.3;
             white-space: nowrap;
-            color: $material-grey-dark-color;
+            color: $conversation-header-text-color;
         }
     }
 
@@ -470,7 +470,7 @@
         justify-content: center;
 
         .message-body {
-            background-color: #fcf8e3;
+            background-color: $ctrl-message-bubble-color;
 
             .message-text {
                 margin-top: 0;
