@@ -92,10 +92,10 @@
                             <img height="16" width="16" ng-src="{{ ctrl.webClientService.themeService.imageFilename('img/ic_dnd_total_silence.svg') }}" translate translate-attr-title="messenger.MUTED_NONE">
                         </span>
                         <span class="notification-settings" ng-if="dndModeSimplified === 'mention'">
-                            <img height="16" width="16" ng-src="{{ ctrl.webClientService.themeService.imageFilename('img/img/ic_dnd_mention.svg.svg') }}" translate translate-attr-title="messenger.MUTED_MENTION_ONLY">
+                            <img height="16" width="16" ng-src="{{ ctrl.webClientService.themeService.imageFilename('img/ic_dnd_mention.svg') }}" translate translate-attr-title="messenger.MUTED_MENTION_ONLY">
                         </span>
                         <span class="notification-settings" ng-if="dndModeSimplified === 'off' && conversation.notifications && conversation.notifications.sound.mode === 'muted'">
-                            <img height="16" width="16" ng-src="{{ ctrl.webClientService.themeService.imageFilename('img/img/img/ic_notifications_off.svg.svg.svg') }}" translate translate-attr-title="messenger.MUTED_SILENT">
+                            <img height="16" width="16" ng-src="{{ ctrl.webClientService.themeService.imageFilename('img/ic_notifications_off.svg') }}" translate translate-attr-title="messenger.MUTED_SILENT">
                         </span>
                         <span class="badge unread-count" ng-show="conversation.unreadCount > 0">
                             {{ conversation.unreadCount }}
