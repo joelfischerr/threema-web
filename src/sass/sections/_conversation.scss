@@ -390,6 +390,14 @@
                     color: $text-dark-color;
                 }
 
+                i.user-ack {
+                    color: #4caf50;
+                }
+
+                i.user-dec {
+                    color: #ff9800;
+                }
+
                 i.timeout {
                     color: $status-error-color;
                 }
