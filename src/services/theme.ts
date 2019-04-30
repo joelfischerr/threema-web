@@ -67,7 +67,7 @@ export class ThemeService {
         }
         const ext = this.iconColor() ? '_dark' : '';
         const fnl = fn.length;
-        return fn = fn.substring(0, fnl - 4) + ext + fn.substring(fnl - 4, fnl);
+        return fn.substring(0, fnl - 4) + ext + fn.substring(fnl - 4, fnl);
     }
 
     /**

@@ -67,7 +67,7 @@ export default [
                 // Return icon depending on the current theme
                 const getIcon = (msgType: threema.MessageType) => {
                     const fn = getIconFilename(msgType);
-                    return (fn == null) ? themeService.imageFilename(fn) : null;
+                    return ((fn !== null) ? themeService.imageFilename(fn) : null);
                 };
 
                 this.update = () => {
