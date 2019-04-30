@@ -148,8 +148,7 @@ class SettingsController {
     private notificationPreview: boolean;
     private notificationSound: boolean;
 
-    private themeName: string;
-    public themeOptions = ['Light (White)', 'Dark (Black)'];
+    // private themeName: string;
 
     constructor($mdDialog: ng.material.IDialogService,
                 $window: ng.IWindowService,
@@ -167,7 +166,6 @@ class SettingsController {
         this.notificationPreview = notificationService.getWantsPreview();
         this.notificationSound = notificationService.getWantsSound();
         this.themeService  = themeService;
-        this.themeName = themeService.getTheme();
     }
 
     public cancel(): void {
@@ -198,16 +196,6 @@ class SettingsController {
     public setWantsSound(notificationSound: boolean) {
         this.notificationService.setWantsSound(notificationSound);
     }
-
-    public setTheme() {
-            this.themeService.setTheme(this.themeName);
-    }
-
-    public getTheme(): string {
-        this.themeName = this.themeService.getTheme();
-        return this.themeName;
-    }
-
 }
 
 interface ConversationStateParams extends UiStateParams {
@@ -235,6 +223,7 @@ class ConversationController {
     private stateService: StateService;
     private mimeService: MimeService;
     private timeoutService: TimeoutService;
+    private themeService: ThemeService;
 
     // Third party services
     private $mdDialog: ng.material.IDialogService;
@@ -291,7 +280,7 @@ class ConversationController {
         '$mdDialog', '$mdToast', '$translate', '$filter',
         '$state', '$transitions',
         'WebClientService', 'StateService', 'ReceiverService', 'MimeService', 'VersionService',
-        'ControllerModelService', 'TimeoutService',
+        'ControllerModelService', 'TimeoutService', 'ThemeService',
     ];
     constructor($stateParams: ConversationStateParams,
                 $log: ng.ILogService,
@@ -309,7 +298,8 @@ class ConversationController {
                 mimeService: MimeService,
                 versionService: VersionService,
                 controllerModelService: ControllerModelService,
-                timeoutService: TimeoutService) {
+                timeoutService: TimeoutService,
+                themeService: ThemeService) {
         this.$stateParams = $stateParams;
         this.$log = $log;
         this.webClientService = webClientService;
@@ -317,6 +307,7 @@ class ConversationController {
         this.stateService = stateService;
         this.mimeService = mimeService;
         this.timeoutService = timeoutService;
+        this.themeService = themeService;
 
         this.$state = $state;
         this.$scope = $scope;
@@ -539,6 +530,10 @@ class ConversationController {
                 .textContent(this.$translate.instant(msgTranslation))
                 .position('bottom center')
                 .hideDelay(hideDelayMs));
+    }
+
+    public getSpinner(): string {
+        return this.themeService.imageFilename('img/spinner.gif');
     }
 
     /**

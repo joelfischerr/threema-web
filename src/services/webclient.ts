@@ -177,10 +177,10 @@ export class WebClientService {
     private pushService: PushService;
     private qrCodeService: QrCodeService;
     private receiverService: ReceiverService;
-    private themeService: ThemeService;
     private timeoutService: TimeoutService;
     private titleService: TitleService; // Don't remove, needs to be initialized to handle events
     private versionService: VersionService;
+    public themeService: ThemeService;
 
     // State handling
     private startupPromise: ng.IDeferred<{}> = null; // TODO: deferred type
@@ -3163,7 +3163,7 @@ export class WebClientService {
                 canChangeFirstName: true,
                 canChangeLastName: true,
             },
-            color: '#000000',
+            color: 'rgb(112, 112, 112)',
         });
 
         this.registerInitializationStep(InitializationStep.Profile);
