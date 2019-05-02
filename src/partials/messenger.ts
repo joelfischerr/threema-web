@@ -533,7 +533,7 @@ class ConversationController {
     }
 
     public getSpinner(): string {
-        return this.themeService.imageFilename('img/spinner.gif');
+        return this.themeService.themedFilename('img/spinner.gif');
     }
 
     /**
@@ -947,14 +947,17 @@ class NavigationController {
     private $translate: ng.translate.ITranslateService;
     private $state: UiStateService;
 
+    public themeService;
+
     public static $inject = [
         '$log', '$state', '$mdDialog', '$translate',
-        'WebClientService', 'StateService', 'ReceiverService', 'NotificationService', 'TrustedKeyStore',
+        'WebClientService', 'StateService', 'ThemeService', 'ReceiverService', 'NotificationService', 'TrustedKeyStore',
     ];
 
     constructor($log: ng.ILogService, $state: UiStateService,
                 $mdDialog: ng.material.IDialogService, $translate: ng.translate.ITranslateService,
                 webClientService: WebClientService, stateService: StateService,
+                themeService: ThemeService,
                 receiverService: ReceiverService, notificationService: NotificationService,
                 trustedKeyStoreService: TrustedKeyStoreService) {
 
@@ -973,6 +976,7 @@ class NavigationController {
         this.$mdDialog = $mdDialog;
         this.$translate = $translate;
         this.$state = $state;
+        this.themeService = themeService;
     }
 
     public contacts(): threema.ContactReceiver[] {

@@ -18,86 +18,63 @@ import {SettingsService} from './settings';
 
 export class ThemeService {
 
-    private $log: ng.ILogService;
+    public currentTheme: number;
+
+    public themeOptions: string[] = ['THEME_LIGHT_WHITE', 'THEME_DARK_BLACK'];
+    private themeFilenames: string[] = ['app-light.css', 'app-dark.css'];
 
     private settingsService: SettingsService;
-    private logTag = '[ThemeService]';
+    public static $inject = ['SettingsService'];
 
-    public currentTheme = '';
-    public themeOptions = ['Light (White)', 'Dark (Black)'];
-
-    public static $inject = ['$log', 'SettingsService'];
-
-    constructor($log: ng.ILogService, settingsService: SettingsService) {
-        this.$log = $log;
+    constructor(settingsService: SettingsService) {
         this.settingsService = settingsService;
-    }
-
-    public init(): void {
-        this.currentTheme = this.getTheme();
-    }
-
-    /**
-     * Sets the theme to themeName
-     */
-    public setTheme(themeName: string): void {
-        this.storeSetting('ThemeService.THEME_SETTING', themeName);
-        this.loadTheme();
-    }
-
-    /**
-     * Retrieves the theme from settings
-     */
-    public getTheme(): string {
-        const theme = this.retrieveSetting('ThemeService.THEME_SETTING');
-        return theme ? theme : 'Light (White)';
+        this.currentTheme = this.getThemeID();
     }
 
     /*
-    * Returns false if the original icon should be used
-    * and true if the _dark icon should be usedl
+    * Returns a string with _dark added at the end.
+    * Used to get the correct icons depending on the theme.
     */
-    private iconColor(): boolean {
-        return (this.getTheme() === 'Dark (Black)');
-    }
-
-    public imageFilename(fn: string): string {
+    public themedFilename(fn: string): string {
         if (fn == null) {
             return null;
         }
-        const ext = this.iconColor() ? '_dark' : '';
+        const ext = (this.currentTheme === 1) ? '_dark' : '';
         const fnl = fn.length;
         return fn.substring(0, fnl - 4) + ext + fn.substring(fnl - 4, fnl);
     }
 
-    /**
-     * Changes the theme to the one currently stored in the settings
-     */
-    public loadTheme() {
-        let themeName = this.getTheme();
-
-        if (themeName === 'Dark (Black)') {
-            themeName = 'app-dark.css';
-        } else if (themeName === 'Light (White)') {
-            themeName = 'app-light.css';
-        } else {
-            themeName = 'app-light.css';
-        }
-        this.switchTheme(themeName);
+    public setThemeID(themeID: number) {
+        this.currentTheme = themeID;
+        this.storeSetting('ThemeService.THEME_SETTING', themeID.toString());
     }
 
-    private switchTheme(themeName: string) {
-        const cssId = 'themeID';
-        const head = document.getElementsByTagName('head')[0];
-        const oldTheme = document.getElementById(cssId);
-        const link = document.createElement('link');
-        link.id = cssId;
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = '/css/' + themeName;
-        link.media = 'all';
-        head.appendChild(link);
-        head.removeChild(oldTheme);
+    public getThemeIDS(): number[] {
+        const list: number[] = [];
+        for (let i = 0; i < this.themeOptions.length; i++) {
+            list.push(i);
+        }
+        return list;
+    }
+
+    public getThemeID(): number {
+        const theme: number = Number(this.retrieveSetting('ThemeService.THEME_SETTING'));
+        this.currentTheme = theme;
+        return isNaN(theme) ? 0 : theme;
+    }
+
+    private getNameForThemeID(themeID: number): string {
+        if (themeID < this.themeOptions.length) {
+            return this.themeOptions[themeID];
+        }
+        return this.themeOptions[0];
+    }
+
+    public getCSSForThemeID(themeID: number): string {
+        if (themeID < this.themeFilenames.length) {
+            return this.themeFilenames[themeID];
+        }
+        return this.themeFilenames[0];
     }
 
     /**

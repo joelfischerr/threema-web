@@ -62,13 +62,13 @@
                                 <md-select
                                     ng-disabled="false"
                                     ng-model="ctrl.themeService.currentTheme"
-                                    ng-change="ctrl.themeService.setTheme(ctrl.themeService.currentTheme)"
+                                    ng-change="ctrl.themeService.setThemeID(ctrl.themeService.currentTheme)"
                                     aria-label="Change the appearance of Threema Web"
-                                    md-selected-text="ctrl.themeService.getTheme()"
+                                    md-selected-text="ctrl.themeService.getNameForThemeID(ctrl.themeService.currentTheme)"
                                     >
                                         <md-option 
-                                            ng-repeat="theme in ctrl.themeService.themeOptions" 
-                                            ng-value="theme"><p translate>{{theme}}</p> 
+                                            ng-repeat="themeID in ctrl.themeService.getThemeIDS()" 
+                                            ng-value="themeID"><p translate>{{ctrl.themeService.getNameForThemeID(themeID)}}</p> 
                                         </md-option>
                                 </md-select>
                             </md-list-item>
